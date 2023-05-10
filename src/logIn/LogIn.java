@@ -1,18 +1,18 @@
 package logIn;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class LogIn {
-    public static void main(String[] args){
+
+    public void func(){
         ClientData cd;
         String path = "C:/javaFinal/data.dat";
         try{
             FileOutputStream fos = new FileOutputStream(path);
         }
-        catch (FileNotFoundException e){
+        catch (IOException e){
             System.out.println("File not found");
         }
-
-
     }
 }
