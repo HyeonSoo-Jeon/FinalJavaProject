@@ -1,4 +1,4 @@
-package ClassFileExample;
+package examples.ClassFileExample;
 
 import java.io.Serializable;
 
