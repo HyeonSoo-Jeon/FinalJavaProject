@@ -170,6 +170,43 @@ public class CustomTitleBar extends JFrame {
             mainFrame.setLocation(prevLocation);
         }
     }
+    private static class ResizeAdapter extends MouseAdapter {
+        private final int RESIZE_BUFFER = 10;
+        private boolean resizing = false;
+        private int startX, startY;
+        private int startWidth, startHeight;
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            Component comp = e.getComponent();
+            if (e.getX() > comp.getWidth() - RESIZE_BUFFER && e.getY() > comp.getHeight() - RESIZE_BUFFER) {
+                resizing = true;
+                startX = e.getXOnScreen();
+                startY = e.getYOnScreen();
+                startWidth = comp.getWidth();
+                startHeight = comp.getHeight();
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            resizing = false;
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            if (resizing) {
+                Component comp = e.getComponent();
+                int deltaX = e.getXOnScreen() - startX;
+                int deltaY = e.getYOnScreen() - startY;
+                int newWidth = startWidth + deltaX;
+                int newHeight = startHeight + deltaY;
+                comp.setSize(newWidth, newHeight);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new CustomTitleBar());
     }
