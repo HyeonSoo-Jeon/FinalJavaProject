@@ -1,7 +1,5 @@
 package setting;
 
-import examples.CustomTitleBar.CustomTitleBar;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

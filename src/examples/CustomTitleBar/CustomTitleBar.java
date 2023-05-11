@@ -1,9 +1,12 @@
 package examples.CustomTitleBar;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CustomTitleBar extends JFrame {
     private JFrame mainFrame;
@@ -23,7 +26,7 @@ public class CustomTitleBar extends JFrame {
         });
 
         // Custom title bar panel
-        JPanel titleBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel titleBar = new JPanel(new BorderLayout());
         // titleBar.setBorder(new LineBorder(Color.BLACK));
         titleBar.setBackground(Color.GRAY);
 
@@ -72,6 +75,23 @@ public class CustomTitleBar extends JFrame {
             }
         };
 
+        JPopupMenu menuPopup = new JPopupMenu();
+        JMenuItem fileItem = new JMenuItem("File");
+        JMenuItem settingsItem = new JMenuItem("Settings");
+        JMenuItem helpItem = new JMenuItem("Help");
+
+        menuPopup.add(fileItem);
+        menuPopup.add(settingsItem);
+        menuPopup.add(helpItem);
+
+        // Menu button
+        JButton menuButton = new JButton("☰");
+        menuButton.setBackground(Color.GRAY);
+        menuButton.setForeground(Color.LIGHT_GRAY);
+        menuButton.addActionListener(e -> menuPopup.show(menuButton, 0, menuButton.getHeight()));
+        menuButton.addMouseListener(buttonMouseListener);
+
+
         // Minimize button
         JButton minimizeButton = new JButton("_");
         minimizeButton.setBackground(Color.GRAY);
@@ -91,15 +111,39 @@ public class CustomTitleBar extends JFrame {
         closeButton.setBackground(Color.GRAY);
         closeButton.setForeground(Color.LIGHT_GRAY);
         closeButton.addActionListener(e -> System.exit(0));
-        closeButton.addMouseListener(buttonMouseListener);
+        closeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                JButton button = (JButton) e.getSource();
+                button.setBackground(Color.RED);
+                button.setForeground(Color.WHITE);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                JButton button = (JButton) e.getSource();
+                button.setBackground(Color.GRAY);
+                button.setForeground(Color.LIGHT_GRAY);
+            }
+        });
 
         // Add buttons to the title bar
-        titleBar.add(minimizeButton);
-        titleBar.add(maximizeButton);
-        titleBar.add(closeButton);
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftPanel.setBackground(Color.GRAY);
+        leftPanel.add(menuButton);
+
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightPanel.setBackground(Color.GRAY);
+        rightPanel.add(minimizeButton);
+        rightPanel.add(maximizeButton);
+        rightPanel.add(closeButton);
+
+        titleBar.add(leftPanel, BorderLayout.WEST);
+        titleBar.add(rightPanel, BorderLayout.EAST);
 
         // Add title bar to the main frame
         mainFrame.add(titleBar, BorderLayout.NORTH);
+
+        /*------------------------------------------------------------------------*/
 
         // Main panel containing three buttons
         JPanel mainPanel = new JPanel(new GridLayout(3, 1, 5, 5));
@@ -126,7 +170,6 @@ public class CustomTitleBar extends JFrame {
             mainFrame.setLocation(prevLocation);
         }
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new CustomTitleBar());
     }

@@ -1,18 +1,23 @@
 package examples.CustomTitleBar;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class CustomTitleBarWithDrag extends JFrame {
+public class CustomTitleBarComplete extends JFrame {
     private JFrame mainFrame;
     private int mouseX, mouseY;
     private Point prevLocation;
 
-    public CustomTitleBarWithDrag() {
+    public CustomTitleBarComplete() {
         mainFrame = new JFrame();
+        // 타이틀바 제거
         mainFrame.setUndecorated(true);
+        // 최소 크기 지정
         mainFrame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -21,11 +26,12 @@ public class CustomTitleBarWithDrag extends JFrame {
         });
 
         // Custom title bar panel
-        JPanel titleBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        titleBar.setBorder(new LineBorder(Color.BLACK));
+        JPanel titleBar = new JPanel(new BorderLayout());
+        // titleBar.setBorder(new LineBorder(Color.BLACK));
         titleBar.setBackground(Color.GRAY);
 
         // Double click to maximize/restore
+        // 더블클릭 사이즈 변경
         titleBar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
@@ -39,6 +45,22 @@ public class CustomTitleBarWithDrag extends JFrame {
             }
         });
 
+        // Dragging the window only works in normal state
+        // 타이틀바 드래그
+        titleBar.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                if (mainFrame.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                    int x = e.getXOnScreen() - mouseX;
+                    int y = e.getYOnScreen() - mouseY;
+                    mainFrame.setLocation(x, y);
+                } else {
+                    mainFrame.setExtendedState(JFrame.NORMAL);
+                    mainFrame.setLocation(prevLocation);
+                }
+            }
+        });
+
+        // 마우스 색깔 바꾸는 리스너
         MouseAdapter buttonMouseListener = new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 JButton button = (JButton) e.getSource();
@@ -53,15 +75,32 @@ public class CustomTitleBarWithDrag extends JFrame {
             }
         };
 
+        JPopupMenu menuPopup = new JPopupMenu();
+        JMenuItem fileItem = new JMenuItem("File");
+        JMenuItem settingsItem = new JMenuItem("Settings");
+        JMenuItem helpItem = new JMenuItem("Help");
+
+        menuPopup.add(fileItem);
+        menuPopup.add(settingsItem);
+        menuPopup.add(helpItem);
+
+        // Menu button
+        JButton menuButton = new JButton("☰");
+        menuButton.setBackground(Color.GRAY);
+        menuButton.setForeground(Color.LIGHT_GRAY);
+        menuButton.addActionListener(e -> menuPopup.show(menuButton, 0, menuButton.getHeight()));
+        menuButton.addMouseListener(buttonMouseListener);
+
+
         // Minimize button
-        JButton minimizeButton = new JButton("-");
+        JButton minimizeButton = new JButton("_");
         minimizeButton.setBackground(Color.GRAY);
         minimizeButton.setForeground(Color.LIGHT_GRAY);
         minimizeButton.addActionListener(e -> mainFrame.setState(JFrame.ICONIFIED));
         minimizeButton.addMouseListener(buttonMouseListener);
 
         // Maximize or Restore button
-        JButton maximizeButton = new JButton("[]");
+        JButton maximizeButton = new JButton("□");
         maximizeButton.setBackground(Color.GRAY);
         maximizeButton.setForeground(Color.LIGHT_GRAY);
         maximizeButton.addActionListener(e -> toggleMaximizeRestore());
@@ -72,15 +111,39 @@ public class CustomTitleBarWithDrag extends JFrame {
         closeButton.setBackground(Color.GRAY);
         closeButton.setForeground(Color.LIGHT_GRAY);
         closeButton.addActionListener(e -> System.exit(0));
-        closeButton.addMouseListener(buttonMouseListener);
+        closeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                JButton button = (JButton) e.getSource();
+                button.setBackground(Color.RED);
+                button.setForeground(Color.WHITE);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                JButton button = (JButton) e.getSource();
+                button.setBackground(Color.GRAY);
+                button.setForeground(Color.LIGHT_GRAY);
+            }
+        });
 
         // Add buttons to the title bar
-        titleBar.add(minimizeButton);
-        titleBar.add(maximizeButton);
-        titleBar.add(closeButton);
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftPanel.setBackground(Color.GRAY);
+        leftPanel.add(menuButton);
+
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightPanel.setBackground(Color.GRAY);
+        rightPanel.add(minimizeButton);
+        rightPanel.add(maximizeButton);
+        rightPanel.add(closeButton);
+
+        titleBar.add(leftPanel, BorderLayout.WEST);
+        titleBar.add(rightPanel, BorderLayout.EAST);
 
         // Add title bar to the main frame
         mainFrame.add(titleBar, BorderLayout.NORTH);
+
+        /*------------------------------------------------------------------------*/
 
         // Main panel containing three buttons
         JPanel mainPanel = new JPanel(new GridLayout(3, 1, 5, 5));
@@ -107,8 +170,7 @@ public class CustomTitleBarWithDrag extends JFrame {
             mainFrame.setLocation(prevLocation);
         }
     }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new CustomTitleBarWithDrag());
+        SwingUtilities.invokeLater(() -> new CustomTitleBarComplete());
     }
 }
