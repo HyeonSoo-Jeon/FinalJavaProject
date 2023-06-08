@@ -42,7 +42,7 @@ public class SetInitialFile {
     }
 
     public static boolean checkUserInfoFile(){
-        File file = new File("./Data/userInfo.dat");
+        File file = new File("./Data/Client/userInfo.dat");
 
         // userInfo.dat File
         if (!file.exists()) {
