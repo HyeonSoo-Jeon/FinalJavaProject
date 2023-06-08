@@ -5,16 +5,36 @@ import java.io.IOException;
 
 public class SetInitialFile {
 
-    public static boolean checkPath(){
-        File directory = new File("C:/javaFinal");
+    public static boolean checkPath() {
+        File rootDir = new File("./Data");
+        File clientDir = new File("./Data/Client");
+        File postDir = new File("./Data/Post");
 
-        // javaFinal 디렉토리가 없으면 생성
-        if (!directory.exists()) {
-            if (directory.mkdir()) {
-                System.out.println("C:/javaFinal 디렉토리를 생성했습니다.");
+        // root Directory
+        if (!rootDir.exists()) {
+            if (rootDir.mkdir()) {
+                System.out.println("The [./Data] directory was created successfully.");
+            } else {
+                System.err.println("Failed to create [./Data] directory.");
+                return false;
             }
-            else {
-                System.err.println("C:/javaFinal 디렉토리를 생성하지 못했습니다.");
+        }
+        // client Directory
+        if (!clientDir.exists()) {
+            if (clientDir.mkdir()) {
+                System.out.println("The [./Data/Client] directory was created successfully.");
+            } else {
+                System.err.println("Failed to create [./Data/Client] directory.");
+                return false;
+            }
+        }
+
+        // post Directory
+        if (!postDir.exists()) {
+            if (postDir.mkdir()) {
+                System.out.println("The [./Data/Post] directory was created successfully.");
+            } else {
+                System.err.println("Failed to create [./Data/Post] directory.");
                 return false;
             }
         }
@@ -22,17 +42,17 @@ public class SetInitialFile {
     }
 
     public static boolean checkUserInfoFile(){
-        File file = new File("C:/javaFinal/userInfo.dat");
+        File file = new File("./Data/userInfo.dat");
 
-        // userInfo.dat 파일이 없으면 생성
+        // userInfo.dat File
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
-                    System.out.println("C:/javaFinal/userInfo.dat 파일을 생성했습니다.");
+                    System.out.println("Created [./Data/Client/userInfo.dat] file.");
                     return true;
                 }
                 else {
-                    System.err.println("C:/javaFinal/userInfo.dat 파일을 생성하지 못했습니다.");
+                    System.err.println("Failed to create [./Data/Client/userInfo.dat] file.");
                     return false;
                 }
             } catch(IOException e) {
@@ -41,7 +61,7 @@ public class SetInitialFile {
             }
         }
         else {
-            System.out.println("C:/javaFinal/userInfo.dat 파일이 이미 존재합니다.");
+            System.out.println("The [./Data/Client/userInfo.dat] file already exists.");
             return true;
         }
     }

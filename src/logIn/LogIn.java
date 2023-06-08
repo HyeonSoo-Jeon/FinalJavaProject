@@ -7,7 +7,7 @@ public class LogIn {
 
     public void func(){
         ClientData cd;
-        String path = "C:/javaFinal/data.dat";
+        String path = "./Data/Client/userInfo.dat";
         try{
             FileOutputStream fos = new FileOutputStream(path);
         }
