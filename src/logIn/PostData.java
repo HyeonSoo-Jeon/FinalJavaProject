@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 public class PostData {
     String postID;
-    String password;
-    ArrayList<String> posts = new ArrayList<>();
+    String content;
+    ArrayList<String> comments;
+
+    PostData(String postID, String content){
+        this.postID = postID;
+        this.content = content;
+        comments = new ArrayList<>();
+    }
 }
