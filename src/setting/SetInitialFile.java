@@ -41,15 +41,15 @@ public class SetInitialFile {
         return true;
     }
 
-    public static boolean checkUserInfoFile(){
-        File file = new File("./Data/Client/userInfo.dat");
+    public static boolean checkDataFiles(){
+        File userFile = new File("./Data/Client/userInfo.dat");
+        File postFile = new File("./Data/Client/postInfo.dat");
 
         // userInfo.dat File
-        if (!file.exists()) {
+        if (!userFile.exists()) {
             try {
-                if (file.createNewFile()) {
+                if (userFile.createNewFile()) {
                     System.out.println("Created [./Data/Client/userInfo.dat] file.");
-                    return true;
                 }
                 else {
                     System.err.println("Failed to create [./Data/Client/userInfo.dat] file.");
@@ -62,7 +62,25 @@ public class SetInitialFile {
         }
         else {
             System.out.println("The [./Data/Client/userInfo.dat] file already exists.");
-            return true;
         }
+        // postInfo.dat File
+        if (!postFile.exists()) {
+            try {
+                if (postFile.createNewFile()) {
+                    System.out.println("Created [./Data/Post/postInfo.dat] file.");
+                }
+                else {
+                    System.err.println("Failed to create [./Data/Post/postInfo.dat] file.");
+                    return false;
+                }
+            } catch(IOException e) {
+                System.err.println(e.toString());
+                return false;
+            }
+        }
+        else {
+            System.out.println("The [./Data/Post/postInfo.dat] file already exists.");
+        }
+       return true;
     }
 }

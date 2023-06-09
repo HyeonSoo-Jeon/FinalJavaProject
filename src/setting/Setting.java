@@ -82,7 +82,7 @@ public class Setting extends JFrame{
             System.err.println();
         }
         // UserInfo.dat파일이 생성되지 않은 경우
-        if(!SetInitialFile.checkUserInfoFile()){
+        if(!SetInitialFile.checkDataFiles()){
             System.err.println();
         }
     }
