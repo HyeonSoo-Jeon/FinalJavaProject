@@ -8,7 +8,7 @@ public class ClientData implements Serializable{
     String password;
     ArrayList<String> posts;
 
-    ClientData(String userID, String password){
+    public ClientData(String userID, String password){
         this.userID = userID;
         this.password = password;
         posts = new ArrayList<>();

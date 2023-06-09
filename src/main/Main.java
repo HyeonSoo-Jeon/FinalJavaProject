@@ -1,14 +1,33 @@
 package main;
 
+import PostUI.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Main {
     public static void main(String[] args) {
+        MainFrame mf = new MainFrame();
 
-        String enteredUsername = "johndoe";
-        String enteredPassword = "12345";
-        if (Login.authenticateUser(enteredUsername, enteredPassword)) {
-            System.out.println("로그인 성공!");
-        } else {
-            System.out.println("아이디 또는 비밀번호가 틀렸습니다.");
-        }
+        CardLayout cardLayout = new CardLayout();
+        JPanel container = new JPanel(cardLayout);
+
+        LogIn lp = new LogIn();
+        CreateAccount ca = new CreateAccount();
+
+        container.add(lp,"LogIn");
+        container.add(ca,"CreateAccount");
+
+        lp.createNewAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(container, "CreateAccount");
+            }
+        });
+
+        mf.getContentPane().add(container);
+        mf.setVisible(true);
     }
 }
