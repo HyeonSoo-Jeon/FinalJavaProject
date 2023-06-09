@@ -1,8 +1,9 @@
-package logIn;
+package DataManager;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class ClientData {
+public class ClientData implements Serializable{
     String userID;
     String password;
     ArrayList<String> posts;

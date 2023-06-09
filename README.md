@@ -32,7 +32,7 @@ JPanel을 전환하는 방식으로 작동
 * checkPath() : Data가 저장될 폴더들이 있는지 확인
 * checkUserInfoFile() : userInfo.dat이 있는지 확인
 
-# logIn Folder
+# DataManager Folder
 
 ## ClientData
 

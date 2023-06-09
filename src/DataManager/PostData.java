@@ -1,8 +1,9 @@
-package logIn;
+package DataManager;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class PostData {
+public class PostData implements Serializable{
     String postID;
     String content;
     ArrayList<String> comments;

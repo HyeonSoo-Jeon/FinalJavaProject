@@ -1,4 +1,4 @@
-package logIn;
+package DataManager;
 
 import java.io.*;
 import java.util.ArrayList;
