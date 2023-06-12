@@ -74,13 +74,11 @@ public class MainFrame extends JFrame {
         };
 
         JPopupMenu menuPopup = new JPopupMenu();
-        JMenuItem fileItem = new JMenuItem("File");
-        JMenuItem settingsItem = new JMenuItem("Settings");
-        JMenuItem helpItem = new JMenuItem("Help");
+        JMenuItem logoutItem = new JMenuItem("Log Out");
+        JMenuItem exitItem = new JMenuItem("Exit");
 
-        menuPopup.add(fileItem);
-        menuPopup.add(settingsItem);
-        menuPopup.add(helpItem);
+        menuPopup.add(logoutItem);
+        menuPopup.add(exitItem);
 
 
         ImageIcon img = new ImageIcon("./Source/cat24x24.gif");
@@ -138,7 +136,7 @@ public class MainFrame extends JFrame {
 
 
 
-        setSize(800, 500);
+        setSize(1000, 800);
         setResizable(true);
         setLocationRelativeTo(null);
     }

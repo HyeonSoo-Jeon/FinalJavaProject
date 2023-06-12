@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class PostData implements Serializable{
-    String postID;
-    String content;
-    ArrayList<String> comments;
+    public String title;
+    public String nickname;
 
-    PostData(String postID, String content){
-        this.postID = postID;
+    public String content;
+    public ArrayList<CommentData> comments;
+
+    public PostData(String postID, String nickname, String content){
+        this.title = postID;
+        this.nickname = nickname;
         this.content = content;
         comments = new ArrayList<>();
     }

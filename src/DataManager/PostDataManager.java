@@ -20,7 +20,7 @@ public class PostDataManager {
         return dataList;
     }
 
-    public static void saveClientData(ArrayList<PostData> posts){
+    public static void savePostData(ArrayList<PostData> posts){
         try {
             FileOutputStream fos = new FileOutputStream(path);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
