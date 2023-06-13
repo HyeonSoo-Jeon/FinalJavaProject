@@ -1,13 +1,20 @@
 package PostUI;
 
+import DataManager.ClientData;
+import DataManager.ClientDataManager;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class LogIn extends JPanel {
+
+    ArrayList<ClientData> clients;
     JTextField inputID;
     JPasswordField inputPW;
-    public JButton createNewAccountButton;
+    public JButton createNewAccountButton, loginButton;
     public LogIn(){
+        clients = ClientDataManager.loadClientData();
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
 
@@ -32,7 +39,7 @@ public class LogIn extends JPanel {
         // Login and register buttons panel
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
-        JButton loginButton = new JButton("Login");
+        loginButton = new JButton("Login");
         buttonsPanel.add(loginButton);
         createNewAccountButton = new JButton("Register");
         buttonsPanel.add(createNewAccountButton);
@@ -45,5 +52,17 @@ public class LogIn extends JPanel {
     public String getPW(){
         char[] pw = inputPW.getPassword();
         return new String(pw);
+    }
+    public String verifyAccount(){
+        String inputID = getID();
+        String inputPW = getPW();
+        String nickname = null;
+        for(ClientData client : clients){
+            if(inputID.equals(client.userID) && inputPW.equals(client.password)){
+                nickname = client.nickname;
+                break;
+            }
+        }
+        return nickname;
     }
 }

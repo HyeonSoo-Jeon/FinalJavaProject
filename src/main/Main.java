@@ -15,7 +15,7 @@ public class Main {
         JPanel container = new JPanel(cardLayout);
 
         LogIn lp = new LogIn();
-        CreateAccount ca = new CreateAccount();
+        CreateAccountPanel ca = new CreateAccountPanel();
 
         container.add(lp,"LogIn");
         container.add(ca,"CreateAccount");

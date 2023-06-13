@@ -32,12 +32,6 @@ public class CreatePostPanel extends JPanel {
         topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         postButton = new JButton("POST!");
         topRightPanel.add(postButton);
-        postButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                savePost();
-            }
-        });
         topPanel.add(topRightPanel,BorderLayout.EAST);
         add(topPanel, BorderLayout.NORTH);
 

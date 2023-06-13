@@ -1,94 +1,93 @@
 package PostUI;
 
 import DataManager.*;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class ShowPostPanel extends JPanel {
-    public JButton createPostButton;
-    public ArrayList<JPanel> postPanels;
-    ArrayList<PostData> posts;
-    String currentNickname;
-    ShowPostPanel(String currentNickname){
-        this.currentNickname = currentNickname;
+    public JButton backButton, deleteButton;
+    ShowPostPanel(PostData post, int idx, String currentNickname){
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
-        topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        // post button
-        createPostButton = new JButton("Create POST!");
-        topPanel.add(createPostButton);
-        add(topPanel, BorderLayout.NORTH);
+
+        topPanel.setBorder(new EmptyBorder(10,10,10,10));
+        topPanel.setLayout(new BorderLayout());
+
+        // Cancel Button
+        JPanel topLeftPanel = new JPanel();
+        topLeftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        backButton = new JButton("Back");
+        topLeftPanel.add(backButton);
+        topPanel.add(topLeftPanel,BorderLayout.WEST);
+
+        // Post Button
+        JPanel topRightPanel = new JPanel();
+        topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        deleteButton = new JButton("DELETE!");
+        if(!post.nickname.equals(currentNickname)){
+            deleteButton.setVisible(false);
+        }
+        topRightPanel.add(deleteButton);
+        topPanel.add(topRightPanel,BorderLayout.EAST);
+
+
+
+        add(topPanel,BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel();
+        centerPanel.setBorder(new EmptyBorder(10,50,50,50));
+        centerPanel.setLayout(new BorderLayout(10,10));
+        JLabel titleLabel = new JLabel(post.title);
+        centerPanel.add(titleLabel,BorderLayout.NORTH);
+        JLabel contentLabel = new JLabel(post.content);
+        contentLabel.setBackground(Color.white);
+        contentLabel.setVerticalAlignment(JLabel.TOP);
+        contentLabel.setBorder(new EmptyBorder(15,15,15,15));
+        contentLabel.setOpaque(true);
+        centerPanel.add(contentLabel, BorderLayout.CENTER);
 
-        posts = null;
-        posts = PostDataManager.loadPostData();
-        postPanels = new ArrayList<>();
+
+        JPanel southPanel = new JPanel();
+        southPanel.setPreferredSize(new Dimension(100,200));
+
         // no post
-        if(posts==null){
-            centerPanel.setLayout(new GridBagLayout());
-            centerPanel.add(new JLabel("There are no posts!"),new GridBagConstraints());
-            add(centerPanel,BorderLayout.CENTER);
+        if(post.comments.size()==0){
+            southPanel.setLayout(new GridBagLayout());
+            southPanel.add(new JLabel("There are no comments!"),new GridBagConstraints());
+            centerPanel.add(southPanel,BorderLayout.SOUTH);
         }
         else{
-            centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-            centerPanel.setBorder(new EmptyBorder(50,50,50,50));
+            southPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+            for(CommentData comment : post.comments){
+                JPanel commentPanel = new JPanel(new BorderLayout());
 
-            for(PostData post : posts) {
-                JPanel postPanel = new JPanel();
+                JLabel nickname = new JLabel(comment.nickname);
+                JLabel commentLabel = new JLabel(comment.content);
+                commentPanel.add(contentLabel, BorderLayout.CENTER);
 
-                postPanel.setLayout(new BorderLayout(0,10));
-                postPanel.setPreferredSize(new Dimension(800,100));
-                postPanel.setBackground(Color.white);
-                postPanel.setOpaque(true);
-                postPanel.setBorder(new LineBorder(Color.BLACK,1));
-
-                JPanel titlePanel = new JPanel();
-                titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-                JLabel titleLabel = new JLabel(post.title);
-                JLabel nicknameLabel = new JLabel(post.nickname);
-                titlePanel.add(titleLabel);
-                titlePanel.add(nicknameLabel);
-                postPanel.add(titlePanel,BorderLayout.NORTH);
-
-                // protect to many "enter"
-                int end = Math.min(post.content.length(), 30);
-                String content = post.content.substring(0, end).replace('\n', ' ');
-                JLabel contentLabel = new JLabel(content);
-                contentLabel.setVerticalAlignment(JLabel.TOP);
-                contentLabel.setBorder(new EmptyBorder(0,15,0,15));
-                postPanel.add(contentLabel,BorderLayout.CENTER);
-                centerPanel.add(postPanel);
-                postPanels.add(postPanel);
-                centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-                System.out.println(post.title + " / " + post.content);
+                JScrollPane scrollPane = new JScrollPane(centerPanel);
+                centerPanel.add(scrollPane, BorderLayout.SOUTH);
             }
-            JScrollPane scrollPane = new JScrollPane(centerPanel);
-            scrollPane.getVerticalScrollBar().setUnitIncrement(10);
-            add(scrollPane, BorderLayout.CENTER);
-
         }
+        add(centerPanel, BorderLayout.CENTER);
+
     }
 
-    public PostData getPost(int idx){
-        return posts.get(idx);
-    }
-
-    public String getCurrentNickname(){
-        return currentNickname;
+    public void deletePost(int idx){
+        ArrayList<PostData> posts = PostDataManager.loadPostData();
+        posts.remove(idx);
+        PostDataManager.savePostData(posts);
+        System.out.println("Post Deleted!");
     }
 
     public static void main(String[] args){
+        PostData post = new PostData("title","nickname","hi my name is nickname~!");
         MainFrame mf = new MainFrame();
-        mf.add(new ShowPostPanel("nickname"));
+        mf.add(new ShowPostPanel(post, 1,"nikckname"));
         mf.setVisible(true);
     }
 

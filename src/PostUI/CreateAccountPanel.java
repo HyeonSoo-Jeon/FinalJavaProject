@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CreateAccount extends JPanel {
+public class CreateAccountPanel extends JPanel {
     JLabel confirmLabel;
     JTextField newID, newNickname;
     JPasswordField newPW, confirmPW;
     public JButton cancelButton, registerButton, confirmButton;
-    public CreateAccount(){
+    public CreateAccountPanel(){
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
 
