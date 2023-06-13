@@ -43,7 +43,7 @@ public class SetInitialFile {
 
     public static boolean checkDataFiles(){
         File userFile = new File("./Data/Client/userInfo.dat");
-        File postFile = new File("./Data/Client/postInfo.dat");
+        File postFile = new File("./Data/Post/postInfo.dat");
 
         // userInfo.dat File
         if (!userFile.exists()) {

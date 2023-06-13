@@ -18,7 +18,7 @@ public class MainGUI {
     MainFrame mainFrame;
     CardLayout cardLayout;
     JPanel container;
-    LogIn logIn;
+    LoginPanel loginPanel;
     CreateAccountPanel createAccountPanel;
     FullPostPanel fullPostPanel;
     ShowPostPanel showPostPanel;
@@ -31,46 +31,59 @@ public class MainGUI {
         cardLayout = new CardLayout();
         container = new JPanel(cardLayout);
 
-        logIn = new LogIn();
-        createAccountPanel = new CreateAccountPanel();
-        createPostPanel = new CreatePostPanel(currentNickname);
+        loginPanel = new LoginPanel();
 
-        container.add(logIn,"LogIn");
-        container.add(createAccountPanel,"CreateAccountPanel");
+        container.add(loginPanel,"LoginPanel");
 
-
-        buttonMapping();
+        initLoginActionListeners();
 
         mainFrame.getContentPane().add(container);
         mainFrame.setVisible(true);
     }
 
-    void buttonMapping(){
-        logIn.loginButton.addActionListener(new ActionListener() {
+    void initLoginActionListeners(){
+        loginPanel.loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //currentNickname = logIn.verifyAccount();
                 currentNickname = "nickname";
                 fullPostPanel = new FullPostPanel();
                 container.add(fullPostPanel, "FullPostPanel");
-                fullPostPanelButtonMapping();
+                initFullPostPanelActionListeners();
                 cardLayout.show(container, "FullPostPanel");
             }
         });
-        logIn.createNewAccountButton.addActionListener(new ActionListener() {
+        loginPanel.createNewAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                createAccountPanel = new CreateAccountPanel();
+                container.add(createAccountPanel, "CreateAccountPanel");
+                initCreateAccountPanelActionListeners();
                 cardLayout.show(container, "CreateAccountPanel");
             }
         });
+    }
+    void initCreateAccountPanelActionListeners(){
         createAccountPanel.cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(container, "LogIn");
+                loginPanel = new LoginPanel();
+                container.add(loginPanel,"LoginPanel");
+                initLoginActionListeners();
+                cardLayout.show(container, "LoginPanel");
             }
         });
+        createAccountPanel.registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createAccountPanel.saveNewAccount();
+                loginPanel = new LoginPanel();
+                container.add(loginPanel,"LoginPanel");
+                initLoginActionListeners();
+                cardLayout.show(container, "LoginPanel");            }
+        });
     }
-    void fullPostPanelButtonMapping(){
+    void initFullPostPanelActionListeners(){
         fullPostPanel.createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +102,7 @@ public class MainGUI {
                     post = fullPostPanel.posts.get(idx);
                     System.out.println(post.title + "/" + post.nickname);
                     showPostPanel = new ShowPostPanel(post,idx,currentNickname);
-                    showPostPanelButtonMapping();
+                    initShowPostPanelActionListeners();
                     container.add(showPostPanel, "ShowPostPanel");
                     cardLayout.show(container, "ShowPostPanel");
 
@@ -98,13 +111,13 @@ public class MainGUI {
         }
     }
 
-    void showPostPanelButtonMapping(){
+    void initShowPostPanelActionListeners(){
         showPostPanel.backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fullPostPanel = new FullPostPanel();
                 container.add(fullPostPanel, "FullPostPanel");
-                fullPostPanelButtonMapping();
+                initFullPostPanelActionListeners();
                 cardLayout.show(container, "FullPostPanel");
             }
         });
@@ -114,7 +127,7 @@ public class MainGUI {
                 showPostPanel.deletePost(idx);
                 fullPostPanel = new FullPostPanel();
                 container.add(fullPostPanel, "FullPostPanel");
-                fullPostPanelButtonMapping();
+                initFullPostPanelActionListeners();
                 cardLayout.show(container, "FullPostPanel");
             }
         });
@@ -125,7 +138,7 @@ public class MainGUI {
             public void actionPerformed(ActionEvent e) {
                 fullPostPanel = new FullPostPanel();
                 container.add(fullPostPanel, "FullPostPanel");
-                fullPostPanelButtonMapping();
+                initFullPostPanelActionListeners();
                 cardLayout.show(container, "FullPostPanel");
             }
         });
@@ -136,7 +149,7 @@ public class MainGUI {
                 createPostPanel.savePost();
                 fullPostPanel = new FullPostPanel();
                 container.add(fullPostPanel, "FullPostPanel");
-                fullPostPanelButtonMapping();
+                initFullPostPanelActionListeners();
                 cardLayout.show(container, "FullPostPanel");
             }
         });

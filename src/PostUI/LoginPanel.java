@@ -7,13 +7,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class LogIn extends JPanel {
+public class LoginPanel extends JPanel {
 
     ArrayList<ClientData> clients;
     JTextField inputID;
     JPasswordField inputPW;
     public JButton createNewAccountButton, loginButton;
-    public LogIn(){
+    public LoginPanel(){
         clients = ClientDataManager.loadClientData();
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);

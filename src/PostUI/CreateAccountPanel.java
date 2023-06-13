@@ -3,6 +3,7 @@ package PostUI;
 import DataManager.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,23 +32,23 @@ public class CreateAccountPanel extends JPanel {
 
         // "Create New Account" label
         JLabel titleLabel = new JLabel("Create New Account", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        titleLabel.setPreferredSize(new Dimension(100,200));
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 40));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
         // ID and password input panel
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        inputPanel.setBorder(new EmptyBorder(50,0,50,0));
 
         // ID
         JPanel idPanel = new JPanel(new FlowLayout());
-        idPanel.setMaximumSize(new Dimension(400, 40));
         idPanel.add(new JLabel("ID"));
         newID = new JTextField(10);
         idPanel.add(newID);
 
-        confirmIDButton = new JButton("ID duplicate check");
+        confirmIDButton = new JButton("Duplicate check");
         confirmIDButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,21 +88,19 @@ public class CreateAccountPanel extends JPanel {
 
         // Nickname
         JPanel nicknamePanel = new JPanel(new FlowLayout());
-        nicknamePanel.setMaximumSize(new Dimension(400, 40));
         nicknamePanel.add(new JLabel("Nickname"));
         newNickname = new JTextField(10);
         nicknamePanel.add(newNickname);
 
-        confirmNicknameButton = new JButton("Nickname duplicate check");
+        confirmNicknameButton = new JButton("Duplicate check");
         confirmNicknameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String newNicknameString = newNickname.getText();
 
                 if(newNicknameString.isEmpty()){
-                    confirmNicknameLabel.setForeground(Color.RED);
                     confirmNicknameLabel.setText("Please write new Nickname");
+                    confirmNicknameLabel.setForeground(Color.RED);
                 }
                 else{
                     boolean isDuplicate = false;
@@ -134,7 +133,7 @@ public class CreateAccountPanel extends JPanel {
 
         // Password
         JPanel pwPanel = new JPanel(new FlowLayout());
-        pwPanel.setMaximumSize(new Dimension(400, 40));
+        //pwPanel.setMaximumSize(new Dimension(400, 40));
         pwPanel.add(new JLabel("Password"));
         newPW = new JPasswordField(10);
         pwPanel.add(newPW);
@@ -145,6 +144,7 @@ public class CreateAccountPanel extends JPanel {
         // Login and register buttons panel
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
+        buttonsPanel.setPreferredSize(new Dimension(0,200));
         cancelButton = new JButton("Cancel");
         buttonsPanel.add(cancelButton);
         registerButton = new JButton("Create New Account");
