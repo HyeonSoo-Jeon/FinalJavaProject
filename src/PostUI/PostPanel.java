@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class PostPanel extends JPanel {
     public JButton backButton;
-    PostPanel(PostData post){
+    PostPanel(PostData post, String currentNickname){
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
@@ -60,7 +60,7 @@ public class PostPanel extends JPanel {
     public static void main(String[] args){
         PostData post = new PostData("title","nickname","hi my name is nickname~!");
         MainFrame mf = new MainFrame();
-        mf.add(new PostPanel(post));
+        mf.add(new PostPanel(post, "nickname"));
         mf.setVisible(true);
     }
 
