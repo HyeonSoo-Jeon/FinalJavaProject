@@ -4,15 +4,13 @@ import DataManager.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CreateAccountPanel extends JPanel {
     JLabel confirmLabel;
     JTextField newID, newNickname;
-    JPasswordField newPW, confirmPW;
-    public JButton cancelButton, registerButton, confirmButton;
+    JPasswordField newPW;
+    public JButton cancelButton, registerButton, confirmIDButton;
     public CreateAccountPanel(){
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
@@ -30,6 +28,12 @@ public class CreateAccountPanel extends JPanel {
         newID = new JTextField(10);
         inputPanel.add(newID);
 
+        confirmIDButton = new JButton("ID duplicate check");
+        inputPanel.add(confirmIDButton);
+
+        confirmLabel = new JLabel("");
+        inputPanel.add(confirmLabel);
+
         inputPanel.add(new JLabel("Nickname"));
         newNickname = new JTextField(10);
         inputPanel.add(newNickname);
@@ -37,30 +41,6 @@ public class CreateAccountPanel extends JPanel {
         inputPanel.add(new JLabel("Password"));
         newPW = new JPasswordField(10);
         inputPanel.add(newPW);
-
-        inputPanel.add(new JLabel("Confirm Password"));
-        confirmPW = new JPasswordField(10);
-        inputPanel.add(confirmPW);
-
-        confirmButton = new JButton("Confirm");
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String pw1 = new String(newPW.getPassword());
-                String pw2 = new String(confirmPW.getPassword());
-                if(pw1.equals(pw2)){
-                   confirmLabel.setText("Success");
-                }
-                else {
-                    confirmLabel.setText("The password is not the same.");
-                }
-            }
-        });
-        inputPanel.add(confirmButton);
-
-        confirmLabel = new JLabel("");
-        inputPanel.add(confirmLabel);
-
 
         add(inputPanel, BorderLayout.CENTER);
 
@@ -84,5 +64,11 @@ public class CreateAccountPanel extends JPanel {
         ArrayList<ClientData> clientData = ClientDataManager.loadClientData();
         clientData.add(newClient);
         ClientDataManager.saveClientData(clientData);
+    }
+
+    public static void main(String[] args){
+        MainFrame mf = new MainFrame();
+        mf.add(new CreateAccountPanel());
+        mf.setVisible(true);
     }
 }

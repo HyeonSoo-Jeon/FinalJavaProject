@@ -33,12 +33,11 @@ public class MainGUI {
 
         logIn = new LogIn();
         createAccountPanel = new CreateAccountPanel();
-        showPostPanel = new ShowPostPanel(post,idx,currentNickname);
         createPostPanel = new CreatePostPanel(currentNickname);
 
         container.add(logIn,"LogIn");
         container.add(createAccountPanel,"CreateAccountPanel");
-        container.add(showPostPanel, "ShowPostPanel");
+
 
         buttonMapping();
 
@@ -70,13 +69,36 @@ public class MainGUI {
                 cardLayout.show(container, "LogIn");
             }
         });
-        createAccountPanel.confirmButton.addActionListener(new ActionListener() {
+    }
+    void fullPostPanelButtonMapping(){
+        fullPostPanel.createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                createPostPanel = new CreatePostPanel(currentNickname);
+                createPostPanelButtonMapping();
+                container.add(createPostPanel, "CreatePostPanel");
+                cardLayout.show(container, "CreatePostPanel");
             }
         });
 
+        for(JPanel postPanel : fullPostPanel.postPanels){
+            postPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    idx = fullPostPanel.postPanels.indexOf(postPanel);
+                    post = fullPostPanel.posts.get(idx);
+                    System.out.println(post.title + "/" + post.nickname);
+                    showPostPanel = new ShowPostPanel(post,idx,currentNickname);
+                    showPostPanelButtonMapping();
+                    container.add(showPostPanel, "ShowPostPanel");
+                    cardLayout.show(container, "ShowPostPanel");
+
+                }
+            });
+        }
+    }
+
+    void showPostPanelButtonMapping(){
         showPostPanel.backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,35 +112,12 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showPostPanel.deletePost(idx);
+                fullPostPanel = new FullPostPanel();
+                container.add(fullPostPanel, "FullPostPanel");
+                fullPostPanelButtonMapping();
+                cardLayout.show(container, "FullPostPanel");
             }
         });
-
-
-    }
-    void fullPostPanelButtonMapping(){
-        fullPostPanel.createPostButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createPostPanel = new CreatePostPanel(currentNickname);
-                createPostPanelButtonMapping();
-                container.add(createPostPanel, "CreatePostPanel");
-                cardLayout.show(container, "CreatePostPanel");
-            }
-        });
-
-        for(int i = 0 ; i < fullPostPanel.postPanels.size();i++){
-            JPanel postPanel = fullPostPanel.postPanels.get(i);
-            int finalI = i;
-            postPanel.addMouseMotionListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    idx = finalI;
-                    post = fullPostPanel.posts.get(finalI);
-                    cardLayout.show(container, "ShowPostPanel");
-                }
-            });
-
-        }
     }
     void createPostPanelButtonMapping(){
         createPostPanel.cancelButton.addActionListener(new ActionListener() {

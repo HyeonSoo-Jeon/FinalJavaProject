@@ -36,14 +36,18 @@ public class FullPostPanel extends JPanel {
             add(centerPanel,BorderLayout.CENTER);
         }
         else{
-            centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-            centerPanel.setBorder(new EmptyBorder(50,50,50,50));
+            centerPanel.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            gbc.weightx = 1;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.insets = new Insets(10,50,10,50);
 
             for(PostData post : posts) {
                 JPanel postPanel = new JPanel();
 
                 postPanel.setLayout(new BorderLayout(0,10));
-                postPanel.setPreferredSize(new Dimension(800,100));
+                postPanel.setPreferredSize(new Dimension(0,100));
                 postPanel.setBackground(Color.white);
                 postPanel.setOpaque(true);
                 postPanel.setBorder(new LineBorder(Color.BLACK,1));
@@ -64,11 +68,17 @@ public class FullPostPanel extends JPanel {
                 contentLabel.setVerticalAlignment(JLabel.TOP);
                 contentLabel.setBorder(new EmptyBorder(0,15,0,15));
                 postPanel.add(contentLabel,BorderLayout.CENTER);
-                centerPanel.add(postPanel);
+                centerPanel.add(postPanel, gbc);
                 postPanels.add(postPanel);
-                centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
             }
+            // fill Empty Space
+            GridBagConstraints gbcEmpty = new GridBagConstraints();
+            gbcEmpty.gridwidth = GridBagConstraints.REMAINDER;
+            gbcEmpty.weighty =1;
+            gbcEmpty.fill = GridBagConstraints.VERTICAL;
+            centerPanel.add(Box.createVerticalGlue(),gbcEmpty);
+
+            centerPanel.add(new JLabel());
             JScrollPane scrollPane = new JScrollPane(centerPanel);
             scrollPane.getVerticalScrollBar().setUnitIncrement(10);
             add(scrollPane, BorderLayout.CENTER);
