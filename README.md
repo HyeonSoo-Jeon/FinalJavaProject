@@ -19,7 +19,7 @@ JPanel을 전환하는 방식으로 작동
     * 메뉴 버튼 다시 누르면 사라지게(미완성)
 * 기본 프레임 Resize 가능(미완성)
 
-# setting Folder
+# Setting Folder
 
 ## SetInitialFile
 

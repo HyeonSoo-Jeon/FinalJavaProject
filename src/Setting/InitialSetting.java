@@ -1,11 +1,11 @@
-package setting;
+package Setting;
 
 import java.io.File;
 import java.io.IOException;
 
-public class InitData {
+public class InitialSetting {
 
-    public static boolean initPath() {
+    public static void initPath() {
         File rootDir = new File("./Data");
         File clientDir = new File("./Data/Client");
         File postDir = new File("./Data/Post");
@@ -16,7 +16,6 @@ public class InitData {
                 System.out.println("The [./Data] directory was created successfully.");
             } else {
                 System.err.println("Failed to create [./Data] directory.");
-                return false;
             }
         }
         // client Directory
@@ -25,7 +24,6 @@ public class InitData {
                 System.out.println("The [./Data/Client] directory was created successfully.");
             } else {
                 System.err.println("Failed to create [./Data/Client] directory.");
-                return false;
             }
         }
 
@@ -35,13 +33,11 @@ public class InitData {
                 System.out.println("The [./Data/Post] directory was created successfully.");
             } else {
                 System.err.println("Failed to create [./Data/Post] directory.");
-                return false;
             }
         }
-        return true;
     }
 
-    public static boolean initDataFile(){
+    public static void initDataFile(){
         File userFile = new File("./Data/Client/userInfo.dat");
         File postFile = new File("./Data/Post/postInfo.dat");
 
@@ -53,11 +49,9 @@ public class InitData {
                 }
                 else {
                     System.err.println("Failed to create [./Data/Client/userInfo.dat] file.");
-                    return false;
                 }
             } catch(IOException e) {
                 System.err.println(e.toString());
-                return false;
             }
         }
         else {
@@ -71,16 +65,13 @@ public class InitData {
                 }
                 else {
                     System.err.println("Failed to create [./Data/Post/postInfo.dat] file.");
-                    return false;
                 }
             } catch(IOException e) {
                 System.err.println(e.toString());
-                return false;
             }
         }
         else {
             System.out.println("The [./Data/Post/postInfo.dat] file already exists.");
         }
-       return true;
     }
 }

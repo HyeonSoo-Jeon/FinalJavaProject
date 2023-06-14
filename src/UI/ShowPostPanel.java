@@ -1,4 +1,4 @@
-package PostUI;
+package UI;
 
 import DataManager.*;
 import javax.swing.*;

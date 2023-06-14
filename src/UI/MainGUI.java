@@ -1,4 +1,4 @@
-package PostUI;
+package UI;
 
 import DataManager.PostData;
 
@@ -25,7 +25,6 @@ public class MainGUI {
     CreatePostPanel createPostPanel;
 
     public MainGUI() {
-        post = new PostData("Temp","nickname","Temp");
 
         mainFrame = new MainFrame();
         cardLayout = new CardLayout();
