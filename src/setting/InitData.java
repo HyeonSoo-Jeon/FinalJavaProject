@@ -3,9 +3,9 @@ package setting;
 import java.io.File;
 import java.io.IOException;
 
-public class SetInitialFile {
+public class InitData {
 
-    public static boolean checkPath() {
+    public static boolean initPath() {
         File rootDir = new File("./Data");
         File clientDir = new File("./Data/Client");
         File postDir = new File("./Data/Post");
@@ -41,7 +41,7 @@ public class SetInitialFile {
         return true;
     }
 
-    public static boolean checkDataFiles(){
+    public static boolean initDataFile(){
         File userFile = new File("./Data/Client/userInfo.dat");
         File postFile = new File("./Data/Post/postInfo.dat");
 
