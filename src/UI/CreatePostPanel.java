@@ -15,13 +15,14 @@ public class CreatePostPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
-        topPanel.setBorder(new EmptyBorder(10,10,10,10));
+        topPanel.setBorder(new EmptyBorder(15,15,15,15));
         topPanel.setLayout(new BorderLayout());
 
         // Cancel Button
         JPanel topLeftPanel = new JPanel();
         topLeftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         cancelButton = new JButton("Cancel");
+        cancelButton.setFont(new Fonts.ButtonFont());
         topLeftPanel.add(cancelButton);
         topPanel.add(topLeftPanel,BorderLayout.WEST);
 
@@ -29,6 +30,7 @@ public class CreatePostPanel extends JPanel {
         JPanel topRightPanel = new JPanel();
         topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         postButton = new JButton("POST!");
+
         topRightPanel.add(postButton);
         topPanel.add(topRightPanel,BorderLayout.EAST);
         add(topPanel, BorderLayout.NORTH);

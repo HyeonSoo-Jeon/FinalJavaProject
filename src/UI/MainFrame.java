@@ -9,6 +9,8 @@ public class MainFrame extends JFrame {
     private int mouseX, mouseY;
     private Point prevLocation;
 
+    public JMenuItem logoutItem, exitItem;
+
     public MainFrame() {
         // Remove TitleBar
         setUndecorated(true);
@@ -74,14 +76,14 @@ public class MainFrame extends JFrame {
         };
 
         JPopupMenu menuPopup = new JPopupMenu();
-        JMenuItem logoutItem = new JMenuItem("Log Out");
-        JMenuItem exitItem = new JMenuItem("Exit");
+        logoutItem = new JMenuItem("Log Out");
+        exitItem = new JMenuItem("Exit");
 
         menuPopup.add(logoutItem);
         menuPopup.add(exitItem);
 
 
-        ImageIcon img = new ImageIcon("./Source/cat24x24.gif");
+        ImageIcon img = new ImageIcon("./Source/cat.gif");
         JLabel imgLabel = new JLabel(img);
 
         // Menu button

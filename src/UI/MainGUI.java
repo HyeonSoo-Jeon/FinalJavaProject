@@ -44,12 +44,13 @@ public class MainGUI {
         loginPanel.loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //currentNickname = logIn.verifyAccount();
-                currentNickname = "nickname";
-                fullPostPanel = new FullPostPanel();
-                container.add(fullPostPanel, "FullPostPanel");
-                initFullPostPanelActionListeners();
-                cardLayout.show(container, "FullPostPanel");
+                currentNickname = loginPanel.verifyAccount();
+                if(currentNickname!=null){
+                    fullPostPanel = new FullPostPanel();
+                    container.add(fullPostPanel, "FullPostPanel");
+                    initFullPostPanelActionListeners();
+                    cardLayout.show(container, "FullPostPanel");
+                }
             }
         });
         loginPanel.createNewAccountButton.addActionListener(new ActionListener() {
@@ -75,11 +76,13 @@ public class MainGUI {
         createAccountPanel.registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAccountPanel.saveNewAccount();
-                loginPanel = new LoginPanel();
-                container.add(loginPanel,"LoginPanel");
-                initLoginActionListeners();
-                cardLayout.show(container, "LoginPanel");            }
+                if(createAccountPanel.saveNewAccount()) {
+                    loginPanel = new LoginPanel();
+                    container.add(loginPanel, "LoginPanel");
+                    initLoginActionListeners();
+                    cardLayout.show(container, "LoginPanel");
+                }
+            }
         });
     }
     void initFullPostPanelActionListeners(){

@@ -1,5 +1,6 @@
 package UI;
 
+import CustomAdapter.NoSpaceAdapter;
 import DataManager.*;
 
 import javax.swing.*;
@@ -33,22 +34,33 @@ public class CreateAccountPanel extends JPanel {
         // "Create New Account" label
         JLabel titleLabel = new JLabel("Create New Account", SwingConstants.CENTER);
         titleLabel.setPreferredSize(new Dimension(100,200));
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 40));
+        titleLabel.setFont(new Fonts.TitleFont());
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
         // ID and password input panel
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
-        inputPanel.setBorder(new EmptyBorder(50,0,50,0));
+        inputPanel.setBorder(new EmptyBorder(50,0,40,0));
 
         // ID
         JPanel idPanel = new JPanel(new FlowLayout());
-        idPanel.add(new JLabel("ID"));
-        newID = new JTextField(10);
+
+        JLabel idLabel = new JLabel("ID");
+        idLabel.setFont(new Fonts.ButtonFont());
+        idLabel.setPreferredSize(new Dimension(100,30));
+        idPanel.add(idLabel);
+
+        newID = new JTextField(20);
+        newID.setFont(new Fonts.ContentFont());
+        newID.addKeyListener(new NoSpaceAdapter());
+        idLabel.setPreferredSize(new Dimension(100,30));
+
         idPanel.add(newID);
 
         confirmIDButton = new JButton("Duplicate check");
+        confirmIDButton.setFont(new Fonts.ButtonFont());
+        confirmIDButton.setPreferredSize(new Dimension(150,25));
         confirmIDButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,18 +93,31 @@ public class CreateAccountPanel extends JPanel {
             }
         });
         idPanel.add(confirmIDButton);
-
-        confirmIDLabel = new JLabel("");
-        idPanel.add(confirmIDLabel);
         inputPanel.add(idPanel);
+
+        JPanel confirmIdPanel = new JPanel(new FlowLayout());
+        confirmIDLabel = new JLabel(" ");
+        confirmIdPanel.add(confirmIDLabel);
+        inputPanel.add(confirmIdPanel);
+
 
         // Nickname
         JPanel nicknamePanel = new JPanel(new FlowLayout());
-        nicknamePanel.add(new JLabel("Nickname"));
-        newNickname = new JTextField(10);
+
+        JLabel nicknameLabel = new JLabel("Nickname");
+        nicknameLabel.setFont(new Fonts.ButtonFont());
+        nicknameLabel.setPreferredSize(new Dimension(100,30));
+        nicknamePanel.add(nicknameLabel);
+
+        newNickname = new JTextField(20);
+        newNickname.setFont(new Fonts.ContentFont());
+        newNickname.setPreferredSize(new Dimension(100,30));
+        newNickname.addKeyListener(new NoSpaceAdapter());
         nicknamePanel.add(newNickname);
 
         confirmNicknameButton = new JButton("Duplicate check");
+        confirmNicknameButton.setFont(new Fonts.ButtonFont());
+        confirmNicknameButton.setPreferredSize(new Dimension(150,25));
         confirmNicknameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,18 +150,31 @@ public class CreateAccountPanel extends JPanel {
             }
         });
         nicknamePanel.add(confirmNicknameButton);
-
-        confirmNicknameLabel = new JLabel("");
-        nicknamePanel.add(confirmNicknameLabel);
         inputPanel.add(nicknamePanel);
 
+        JPanel confirmNicknamePanel = new JPanel(new FlowLayout());
+        confirmNicknameLabel = new JLabel(" ");
+        confirmNicknamePanel.add(confirmNicknameLabel);
+        inputPanel.add(confirmNicknamePanel);
 
         // Password
         JPanel pwPanel = new JPanel(new FlowLayout());
-        //pwPanel.setMaximumSize(new Dimension(400, 40));
-        pwPanel.add(new JLabel("Password"));
-        newPW = new JPasswordField(10);
+
+        JLabel pwLabel = new JLabel("Password");
+        pwLabel.setFont(new Fonts.ButtonFont());
+        pwLabel.setPreferredSize(new Dimension(100,30));
+        pwPanel.add(pwLabel);
+
+        newPW = new JPasswordField(20);
+        newPW.addKeyListener(new NoSpaceAdapter());
+        newPW.setFont(new Fonts.ContentFont());
+        newPW.setPreferredSize(new Dimension(100,30));
         pwPanel.add(newPW);
+
+        JLabel tempLable = new JLabel();
+        tempLable.setPreferredSize(new Dimension(150,30));
+        pwPanel.add(tempLable);
+
         inputPanel.add(pwPanel);
 
         add(inputPanel, BorderLayout.CENTER);
@@ -154,9 +192,11 @@ public class CreateAccountPanel extends JPanel {
 
     public boolean saveNewAccount(){
         if(!isConfirmedID){
+            confirmNicknameLabel.setForeground(Color.RED);
             confirmIDLabel.setText("Please confirm your ID");
         }
         if(!isConfirmedNickname){
+            confirmNicknameLabel.setForeground(Color.RED);
             confirmNicknameLabel.setText("Please confirm your ID");
         }
         if(isConfirmedID&&isConfirmedNickname){
@@ -166,9 +206,8 @@ public class CreateAccountPanel extends JPanel {
 
             ClientData newClient = new ClientData(ID, nickname, PW);
 
-            ArrayList<ClientData> clientData = ClientDataManager.loadClientData();
-            clientData.add(newClient);
-            ClientDataManager.saveClientData(clientData);
+            clients.add(newClient);
+            ClientDataManager.saveClientData(clients);
             return true;
         }
         return false;

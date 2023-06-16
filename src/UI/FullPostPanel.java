@@ -17,10 +17,12 @@ public class FullPostPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
+        topPanel.setBorder(new EmptyBorder(15,15,15,15));
         topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         // post button
         createPostButton = new JButton("Create POST!");
+        createPostButton.setFont(new Fonts.ButtonFont());
         topPanel.add(createPostButton);
         add(topPanel, BorderLayout.NORTH);
 
@@ -30,9 +32,11 @@ public class FullPostPanel extends JPanel {
         posts = PostDataManager.loadPostData();
         postPanels = new ArrayList<>();
         // no post
-        if(posts==null){
+        if(posts==null || posts.size()==0){
             centerPanel.setLayout(new GridBagLayout());
-            centerPanel.add(new JLabel("There are no posts!"),new GridBagConstraints());
+            JLabel noPostLabel = new JLabel("There are no posts!");
+            noPostLabel.setFont(new Fonts.NoPostFont());
+            centerPanel.add(noPostLabel,new GridBagConstraints());
             add(centerPanel,BorderLayout.CENTER);
         }
         else{

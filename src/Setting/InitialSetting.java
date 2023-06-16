@@ -45,7 +45,7 @@ public class InitialSetting {
         if (!userFile.exists()) {
             try {
                 if (userFile.createNewFile()) {
-                    System.out.println("Created [./Data/Client/userInfo.dat] file.");
+                    System.out.println("The [./Data/Client/userInfo.dat] file was created successfully.");
                 }
                 else {
                     System.err.println("Failed to create [./Data/Client/userInfo.dat] file.");
@@ -61,7 +61,7 @@ public class InitialSetting {
         if (!postFile.exists()) {
             try {
                 if (postFile.createNewFile()) {
-                    System.out.println("Created [./Data/Post/postInfo.dat] file.");
+                    System.out.println("The [./Data/Post/postInfo.dat] file was created successfully..");
                 }
                 else {
                     System.err.println("Failed to create [./Data/Post/postInfo.dat] file.");
