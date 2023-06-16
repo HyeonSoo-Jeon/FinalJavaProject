@@ -26,4 +26,10 @@ public class Fonts {
             super("SansSerif", Font.BOLD, 40);
         }
     }
+
+    public static class MenuFont extends Font{
+        public MenuFont(){
+            super("Dialog", Font.PLAIN,15);
+        }
+    }
 }

@@ -77,7 +77,9 @@ public class MainFrame extends JFrame {
 
         JPopupMenu menuPopup = new JPopupMenu();
         logoutItem = new JMenuItem("Log Out");
+        logoutItem.setFont(new Fonts.MenuFont());
         exitItem = new JMenuItem("Exit");
+        exitItem.setFont(new Fonts.MenuFont());
 
         menuPopup.add(logoutItem);
         menuPopup.add(exitItem);

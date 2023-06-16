@@ -14,13 +14,14 @@ public class ShowPostPanel extends JPanel {
         JPanel topPanel = new JPanel();
 
 
-        topPanel.setBorder(new EmptyBorder(10,10,10,10));
+        topPanel.setBorder(new EmptyBorder(15,50,15,50));
         topPanel.setLayout(new BorderLayout());
 
         // Cancel Button
         JPanel topLeftPanel = new JPanel();
         topLeftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         backButton = new JButton("Back");
+        backButton.setFont(new Fonts.ButtonFont());
         topLeftPanel.add(backButton);
         topPanel.add(topLeftPanel,BorderLayout.WEST);
 
@@ -28,6 +29,7 @@ public class ShowPostPanel extends JPanel {
         JPanel topRightPanel = new JPanel();
         topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         deleteButton = new JButton("DELETE!");
+        deleteButton.setFont(new Fonts.ButtonFont());
         if(!post.nickname.equals(currentNickname)){
             deleteButton.setVisible(false);
         }
@@ -41,27 +43,41 @@ public class ShowPostPanel extends JPanel {
         JPanel centerPanel = new JPanel();
         centerPanel.setBorder(new EmptyBorder(10,50,50,50));
         centerPanel.setLayout(new BorderLayout(10,10));
+
         JLabel titleLabel = new JLabel(post.title);
+
+        titleLabel.setFont(new Fonts.NoPostFont());
         centerPanel.add(titleLabel,BorderLayout.NORTH);
-        JLabel contentLabel = new JLabel(post.content);
-        contentLabel.setBackground(Color.white);
-        contentLabel.setVerticalAlignment(JLabel.TOP);
+
+        String content = post.content.replace("\n", "<br>");
+        JLabel contentLabel = new JLabel("<html>"+content+"</html>");
         contentLabel.setBorder(new EmptyBorder(15,15,15,15));
+        contentLabel.setVerticalAlignment(JLabel.TOP);
+        contentLabel.setFont(new Fonts.ContentFont());
+        contentLabel.setBackground(Color.white);
         contentLabel.setOpaque(true);
-        centerPanel.add(contentLabel, BorderLayout.CENTER);
+        JScrollPane contentScrollPane = new JScrollPane(contentLabel);
+        contentScrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        centerPanel.add(contentScrollPane, BorderLayout.CENTER);
 
 
-        JPanel southPanel = new JPanel();
-        southPanel.setPreferredSize(new Dimension(100,200));
+        JPanel southPanel = new JPanel(new FlowLayout());
+        JPanel inputPanel = new JPanel(new FlowLayout());
+        JLabel nicknameLabel = new JLabel(currentNickname);
+        nicknameLabel.setFont(new Fonts.ContentFont());
+        inputPanel.add(nicknameLabel);
+
+        JPanel commentsPanel = new JPanel();
+        commentsPanel.setPreferredSize(new Dimension(100,200));
 
         // no post
         if(post.comments.size()==0){
-            southPanel.setLayout(new GridBagLayout());
-            southPanel.add(new JLabel("There are no comments!"),new GridBagConstraints());
-            centerPanel.add(southPanel,BorderLayout.SOUTH);
+            commentsPanel.setLayout(new GridBagLayout());
+            commentsPanel.add(new JLabel("There are no comments!"),new GridBagConstraints());
+            centerPanel.add(commentsPanel,BorderLayout.SOUTH);
         }
         else{
-            southPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+            commentsPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
             for(CommentData comment : post.comments){
                 JPanel commentPanel = new JPanel(new BorderLayout());
 

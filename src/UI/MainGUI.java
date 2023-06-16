@@ -34,12 +34,31 @@ public class MainGUI {
 
         container.add(loginPanel,"LoginPanel");
 
+        initMenuActionListeners();
         initLoginActionListeners();
 
         mainFrame.getContentPane().add(container);
         mainFrame.setVisible(true);
     }
 
+    void initMenuActionListeners(){
+        mainFrame.logoutItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loginPanel = new LoginPanel();
+                container.add(loginPanel,"LoginPanel");
+                initLoginActionListeners();
+                cardLayout.show(container, "LoginPanel");
+            }
+        });
+
+        mainFrame.exitItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+    }
     void initLoginActionListeners(){
         loginPanel.loginButton.addActionListener(new ActionListener() {
             @Override
@@ -102,7 +121,7 @@ public class MainGUI {
                 public void mouseClicked(MouseEvent e) {
                     idx = fullPostPanel.postPanels.indexOf(postPanel);
                     post = fullPostPanel.posts.get(idx);
-                    System.out.println(post.title + "/" + post.nickname);
+
                     showPostPanel = new ShowPostPanel(post,idx,currentNickname);
                     initShowPostPanelActionListeners();
                     container.add(showPostPanel, "ShowPostPanel");

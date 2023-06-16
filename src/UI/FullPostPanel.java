@@ -17,7 +17,7 @@ public class FullPostPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
-        topPanel.setBorder(new EmptyBorder(15,15,15,15));
+        topPanel.setBorder(new EmptyBorder(15,50,15,50));
         topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         // post button
