@@ -34,6 +34,7 @@ public class ShowPostPanel extends JPanel {
         topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         deleteButton = new JButton("DELETE !");
         deleteButton.setFont(new Fonts.ContentBoldFont());
+
         if(!post.nickname.equals(currentNickname)){
             deleteButton.setVisible(false);
         }
@@ -47,29 +48,27 @@ public class ShowPostPanel extends JPanel {
         centerPanel.setBorder(new EmptyBorder(10,50,10,50));
         centerPanel.setLayout(new BorderLayout(10,10));
 
+        // Title
         JLabel titleLabel = new JLabel(post.title);
-
         titleLabel.setFont(new Fonts.TitleFont());
         centerPanel.add(titleLabel,BorderLayout.NORTH);
 
-        //String content = post.content.replace("\n", "<br>");
-        //JLabel contentLabel = new JLabel("<html>"+content+"</html>");
+        // Content
         String content = post.content;
-        JTextArea contentLabel = new JTextArea(content);
-        contentLabel.setLineWrap(true);
-        contentLabel.setEditable(false);
-        contentLabel.setBorder(new EmptyBorder(15,15,15,15));
-        //contentLabel.setVerticalAlignment(JLabel.TOP);
-        contentLabel.setFont(new Fonts.ContentFont());
-        contentLabel.setBackground(Color.white);
-        contentLabel.setOpaque(true);
+        JTextArea contentArea = new JTextArea(content);
+        contentArea.setLineWrap(true);
+        contentArea.setEditable(false);
+        contentArea.setBorder(new EmptyBorder(15,15,15,15));
+        contentArea.setFont(new Fonts.ContentFont());
+        contentArea.setBackground(Color.white);
+        contentArea.setOpaque(true);
 
-        JScrollPane contentScrollPane = new JScrollPane(contentLabel);
+        JScrollPane contentScrollPane = new JScrollPane(contentArea);
         contentScrollPane.getVerticalScrollBar().setUnitIncrement(10);
         centerPanel.add(contentScrollPane, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
-        // comments
+        // Comments
         JPanel southPanel = new JPanel(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(100,250));
         southPanel.setBorder(new EmptyBorder(0,50,50,50));
@@ -92,7 +91,7 @@ public class ShowPostPanel extends JPanel {
         inputPanel.add(commentButton, BorderLayout.EAST);
         southPanel.add(inputPanel, BorderLayout.NORTH);
 
-
+        // Comment List
         JPanel commentsListPanel = new JPanel();
         commentsListPanel.setLayout(new GridBagLayout());
 

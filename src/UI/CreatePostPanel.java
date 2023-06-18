@@ -55,7 +55,6 @@ public class CreatePostPanel extends JPanel {
         contentField.setLineWrap(true);
         contentField.setOpaque(true);
 
-
         JScrollPane contentScrollPane = new JScrollPane(contentField);
         centerPanel.add(contentScrollPane, BorderLayout.CENTER);
 

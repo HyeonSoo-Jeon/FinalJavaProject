@@ -59,11 +59,10 @@ public class FullPostPanel extends JPanel {
                 JPanel titlePanel = new JPanel();
                 titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-                int endOfTitle = Math.min(post.title.length(), 100);
-                String title = post.title.substring(0,endOfTitle);
-                JLabel titleLabel = new JLabel(title);
+                JLabel titleLabel = new JLabel(post.title);
                 titleLabel.setBorder(new EmptyBorder(0,10,0,50));
                 titleLabel.setFont(new Fonts.ContentBoldFont());
+
                 JLabel nicknameLabel = new JLabel("writer : " + post.nickname);
                 nicknameLabel.setFont(new Fonts.MiniContentFont());
 
@@ -71,16 +70,17 @@ public class FullPostPanel extends JPanel {
                 titlePanel.add(nicknameLabel);
                 postPanel.add(titlePanel,BorderLayout.NORTH);
 
-                // protect to many "enter"
                 String content = post.content;
                 JLabel contentLabel = new JLabel(content);
                 contentLabel.setFont(new Fonts.ContentFont());
                 contentLabel.setVerticalAlignment(JLabel.TOP);
                 contentLabel.setBorder(new EmptyBorder(0,15,0,15));
+
                 postPanel.add(contentLabel,BorderLayout.CENTER);
                 centerPanel.add(postPanel, gbc);
                 postPanels.add(postPanel);
             }
+
             // fill Empty Space
             GridBagConstraints gbcEmpty = new GridBagConstraints();
             gbcEmpty.gridwidth = GridBagConstraints.REMAINDER;
