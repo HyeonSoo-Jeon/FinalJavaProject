@@ -107,7 +107,7 @@ public class LoginPanel extends JPanel {
             return null;
         }
         if(inputPW.equals("")){
-            loginErrorLabel.setText("Please Write PassWord");
+            loginErrorLabel.setText("Please Write Password");
             loginErrorLabel.setForeground(Color.RED);
             return null;
         }

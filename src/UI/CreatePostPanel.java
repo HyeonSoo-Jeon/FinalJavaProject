@@ -62,8 +62,13 @@ public class CreatePostPanel extends JPanel {
 
     }
 
-    public void savePost(){
-        PostData post = new PostData(titleField.getText(),nickname,contentField.getText());
+    public boolean savePost(){
+        String newTitle = titleField.getText();
+        String newContent = contentField.getText();
+        if(newTitle.length()==0 || newContent.length()==0){
+            return false;
+        }
+        PostData post = new PostData(newTitle,nickname,newContent);
         ArrayList<PostData> posts = PostDataManager.loadPostData();
         if(posts == null) {
             posts = new ArrayList<>();
@@ -71,5 +76,6 @@ public class CreatePostPanel extends JPanel {
         posts.add(0,post);
         PostDataManager.savePostData(posts);
         System.out.println("post!");
+        return true;
     }
 }

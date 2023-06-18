@@ -159,17 +159,19 @@ public class MainGUI {
             public void actionPerformed(ActionEvent e) {
                 PostData currentPost = showPostPanel.getPost();
                 String newCommentString = showPostPanel.getComment();
-                currentPost.comments.add(0,new CommentData(currentNickname, newCommentString));
+                if(newCommentString.length()!=0){
+                    currentPost.comments.add(0,new CommentData(currentNickname, newCommentString));
 
-                ArrayList<PostData> posts = PostDataManager.loadPostData();
-                posts.remove(idx);
-                posts.add(idx,post);
-                PostDataManager.savePostData(posts);
+                    ArrayList<PostData> posts = PostDataManager.loadPostData();
+                    posts.remove(idx);
+                    posts.add(idx,post);
+                    PostDataManager.savePostData(posts);
 
-                showPostPanel = new ShowPostPanel(post, currentNickname);
-                initShowPostPanelActionListeners();
-                container.add(showPostPanel, "ShowPostPanel");
-                cardLayout.show(container, "ShowPostPanel");
+                    showPostPanel = new ShowPostPanel(post, currentNickname);
+                    initShowPostPanelActionListeners();
+                    container.add(showPostPanel, "ShowPostPanel");
+                    cardLayout.show(container, "ShowPostPanel");
+                }
             }
         });
     }
@@ -187,11 +189,12 @@ public class MainGUI {
         createPostPanel.postButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createPostPanel.savePost();
-                fullPostPanel = new FullPostPanel();
-                container.add(fullPostPanel, "FullPostPanel");
-                initFullPostPanelActionListeners();
-                cardLayout.show(container, "FullPostPanel");
+                if(createPostPanel.savePost()){
+                    fullPostPanel = new FullPostPanel();
+                    container.add(fullPostPanel, "FullPostPanel");
+                    initFullPostPanelActionListeners();
+                    cardLayout.show(container, "FullPostPanel");
+                }
             }
         });
     }
