@@ -20,6 +20,7 @@ public class CreateAccountPanel extends JPanel {
     boolean isConfirmedID, isConfirmedNickname;
 
     public CreateAccountPanel(){
+
         // Load ClientData
         clients = ClientDataManager.loadClientData();
         if(clients==null){
@@ -31,11 +32,10 @@ public class CreateAccountPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // "Create New Account" label
+        // Title label
         JLabel titleLabel = new JLabel("Create New Account", SwingConstants.CENTER);
-        titleLabel.setPreferredSize(new Dimension(100,200));
+        titleLabel.setPreferredSize(new Dimension(100,300));
         titleLabel.setFont(new Fonts.MainTitleFont());
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
         // ID and password input panel
@@ -182,7 +182,7 @@ public class CreateAccountPanel extends JPanel {
         // Login and register buttons panel
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
-        buttonsPanel.setPreferredSize(new Dimension(0,200));
+        buttonsPanel.setPreferredSize(new Dimension(0,150));
         cancelButton = new JButton("Cancel");
         cancelButton.setFont(new Fonts.ContentBoldFont());
         buttonsPanel.add(cancelButton);
@@ -194,12 +194,12 @@ public class CreateAccountPanel extends JPanel {
 
     public boolean saveNewAccount(){
         if(!isConfirmedID){
-            confirmNicknameLabel.setForeground(Color.RED);
+            confirmIDLabel.setForeground(Color.RED);
             confirmIDLabel.setText("Please confirm your ID");
         }
         if(!isConfirmedNickname){
             confirmNicknameLabel.setForeground(Color.RED);
-            confirmNicknameLabel.setText("Please confirm your ID");
+            confirmNicknameLabel.setText("Please confirm your Nickname");
         }
         if(isConfirmedID&&isConfirmedNickname){
             String ID = newID.getText();

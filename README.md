@@ -152,10 +152,103 @@ ObjectOutputStream 객체를 통하여 직렬화 후 파일에 저장합니다.
 
 CardLayout을 이용하여 각 Panel을 전환하는 방식으로 구현하였습니다.
 
-
 ### 5. 0. Fonts.java
 
-GUI에 자주 사용되는 글씨체를 Fo
+GUI에 자주 사용되는 글씨체를 Font를 상속받아 사용하기 편리하도록 정의하였습니다.
 
 ### 5. 1. MainFrame.java
+
+GUI에서 사용될 주 Frame입니다. JFrame을 상속받았습니다.
+
+        setUndecorated(true);
+
+위의 함수를 사용하여 기존의 Title Bar를 제거하였습니다. 
+해당 함수를 사용하게 되면 프로그램의 Size조절을 사용자가 할 수 없게 됩니다.
+
+Jpanel를 이용하여 Custom Title Bar를 생성하였습니다. 
+기존의 Title Bar가 제공해주는 기능을 사용할 수 없기 때문에 따로 기능을 구현해야 합니다.
+
+아래의 내용은 구현한 Custom Title Bar의 기능입니다.
+
+> * 마우스 왼버튼으로 더블클릭 시 최대화/최소화
+> * Title Bar를 드래그하여 화면 이동
+> * 마우스가 위에 올라왔을 때 버튼 색상 변경
+> * Title Bar Icon
+> * Title Bar Menu
+> * Minimize Button
+> * Maximize Button
+> * Close Button
+
+Title Bar를 클릭하였을 때 마우스의 (x, y)를 저장합니다. 
+두번 클릭하였을 때 ```toggleMaximizeRestore()```을 이용하여 최소화 합니다.
+
+마우스로 드래그 하는 경우 만약 전체화면( ```JFrame.MAXIMIZED_BOTH```)이 아닌 경우 위치를 계산하여 이동시켜줍니다.
+전체화면이었다면 ```JFrame.NORMAL```상태로 돌린 후 기존에 저장한 위치로 돌아갑니다.
+
+Title Bar의 버튼에 마우스가 올라가게 된다면 [X]버튼을 제외한 나머지 버튼은 글자색과 배경색을 회색계열로 변경해주고,
+[X]버튼의 경우는 빨간색으로 변경해줍니다. 마우스가 내려가면 원래 상태로 되돌려 줍니다.
+
+Title Bar에 Icon, PopupMenu, Button 3개(최소화, 최대화, 닫기) 버튼을 구현해 줍니다.
+
+PopupMenu에는 로그아웃과 종료를 위한 버튼이 있습니다. 해당 기능은 <b>[MainGUI.java]</b>에서 구현합니다.
+Menu를 누르면 앞의 두 버튼이 나오게 됩니다.
+
+최소화 버튼은 해당 Frame의 상태를 ```JFrame.ICONIFIED```로 변경해줍니다.
+
+최대화 버튼은 해당 Frame의 상태를 정의한 ```setMaximizeRestore()```함수를 이용해 최대화 합니다.
+
+닫기 버튼은 ```System.exit(0)```을 이용해 종료합니다.
+
+Title Bar의 좌측과 우측으로 정렬하기 위해 [BorderLayout]의 BorderLayout.WEST와 BorderLayout.EAST를 이용하였고, 
+아이콘과 Menu는 [FlowLayout.LEFT]로 왼쪽 정렬하여 WEST에,
+최소화, 최대화, 닫기 버튼은 [FlowLayout.EAST]로 우측 정렬하여 EAST에 달았습니다.
+
+Title Bar Panel은 Main Frame의 [BorderLayout.NORTH]에 붙여 상단에 위치하게 했습니다.
+
+또한 상태표시줄의 아이콘에 쓰일 이미지와 프로그램 이름을 설정하고, 사이즈를 고정하였습니다.
+
+```setMaximizeRestore()```함수는 최대화 상태이면 원래 상태로 변경하고, 
+최대화가 아니라면 현재의 위치를 저장하고 최대화를 진행합니다.
+
+### 5.2. LoginPanel.java
+
+로그인 창을 보여줄 Panel입니다.
+
+제목 Label은 SwingConstants로 설정하는데 이는 가운데 정렬을 이용하기 위함입니다.
+
+```setPreferredSize```는 해당 컴포넌트의 Size를 지정해주는 것에 이용됩니다.
+```Dimension(width, height)```를 이용하여 크기를 설정할 수 있습니다.
+
+ID와 비밀번호 입력 컴포넌트를 수직으로 배치하기 위해서 ```BoxLayout```을 사용하였습니다.
+매개변수의 값으로 ```BoxLayout.Y_AXIS```을 주었습니다.
+
+```setBorder()```를 이용하여 컴포넌트의 경계선에 관한 값을 설정할 수 있습니다.
+```new EmptyBorder(top, left, bottom, right)```을 인자로 넘겨서 내부의 간격을 설정하였습니다.
+
+ID Panel, Password Panel을 ```FlowLayout()```로 설정하여 각각 Label과 Text Field가 수평적으로 배치될 수 있게 하고, 
+각 패널을 ```BoxLayout```로 설정한 패널에 붙여서 수직으로 보일 수 있도록 설정하였습니다.
+또한 경고메시지를 보일 label도 추가합니다.
+
+하단에는 로그인 버튼과 회원가입 버튼이 있습니다. 해당 기능은 <b>[MainGUI.java]</b>에서 구현합니다.
+
+```public String getID()```와 ```public String getPW()``` 를 구현했습니다.
+```JPasswordField```는 ```char[]```형식으로 반환되므로 String type으로 변환해주었습니다.
+
+```    public String verifyAccount()``` 는 로그인 버튼이 눌렸을 때 수행될 함수입니다.
+만약 ID Field나 Password Field가 비어있다면 경고메시지를 출력합니다.
+저장된 ClientData를 for문으로 비교하며 ID와 비밀번호가 일치한다면 로그인에 성공하므로 해당 사용자의 닉네임을 반환해주고,
+로그인에 실패한 경우 null을 반환합니다.
+
+### 5.3. CreateAccountPanel.java
+
+회원가입을 진행할 Panel입니다.
+
+Login Panel과 비슷한 구조로 구성되어 있습니다. 
+맨 위에 Title Label을 붙이고, 아래에 ID, 닉네임, 비밀번호를 입력할 수 있도록 구현하였습니다.
+또한 수직으로 배치될 수 있도록 ```BorderLayout.CENTER```에 붙일 Panel을 
+```new BoxLayout(inputPanel, BoxLayout.Y_AXIS)```로 설정하였습니다.
+
+ID, 닉네임, 비밀번호 패널은 마찬가지로 ```Flowlayout```으로 설정하여 수평적으로 배치하였고, 중복을 확인할 수 있는 
+
+
 

@@ -18,6 +18,7 @@ public class LoginPanel extends JPanel {
 
     JLabel loginErrorLabel;
     public LoginPanel(){
+
         clients = ClientDataManager.loadClientData();
         if(clients==null){
             clients = new ArrayList<ClientData>();
@@ -25,11 +26,10 @@ public class LoginPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // "JAVA FINAL" label
+        // Title
         JLabel titleLabel = new JLabel("JAVA FINAL", SwingConstants.CENTER);
-        titleLabel.setPreferredSize(new Dimension(100,200));
+        titleLabel.setPreferredSize(new Dimension(100,300));
         titleLabel.setFont(new Fonts.MainTitleFont());
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
         // ID and password input panel
@@ -57,10 +57,12 @@ public class LoginPanel extends JPanel {
         pwLabel.setFont(new Fonts.ContentBoldFont());
         pwLabel.setPreferredSize(new Dimension(100,30));
         pwPanel.add(pwLabel);
+
         inputPW = new JPasswordField(20);
         inputPW.addKeyListener(new NoSpaceAdapter());
         inputPW.setFont(new Fonts.ContentFont());
         inputPW.setPreferredSize(new Dimension(100,30));
+
         pwPanel.add(inputPW);
 
         JPanel errorPanel = new JPanel(new FlowLayout());
@@ -76,7 +78,7 @@ public class LoginPanel extends JPanel {
         // Login and register buttons panel
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
-        buttonsPanel.setPreferredSize(new Dimension(0,200));
+        buttonsPanel.setPreferredSize(new Dimension(0,150));
 
         createNewAccountButton = new JButton("Register");
         createNewAccountButton.setFont(new Fonts.ContentBoldFont());

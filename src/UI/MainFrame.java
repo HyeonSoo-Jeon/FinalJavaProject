@@ -8,14 +8,13 @@ import java.awt.event.MouseEvent;
 public class MainFrame extends JFrame {
     private int mouseX, mouseY;
     private Point prevLocation;
-
     public JMenuItem logoutItem, exitItem;
 
     public MainFrame() {
         // Remove TitleBar
         setUndecorated(true);
 
-        // Custom title
+        // Make Custom TitleBar
         JPanel titleBar = new JPanel(new BorderLayout());
         titleBar.setBackground(Color.GRAY);
 
@@ -23,7 +22,7 @@ public class MainFrame extends JFrame {
         titleBar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                    toggleMaximizeRestore();
+                    setMaximizeRestore();
                 }
             }
             public void mousePressed(MouseEvent e) {
@@ -47,7 +46,7 @@ public class MainFrame extends JFrame {
         });
 
         // Change button color when mouse is up
-        MouseAdapter buttonChangeColor = new MouseAdapter() {
+        MouseAdapter changeButtonColor = new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 JButton button = (JButton) e.getSource();
                 button.setBackground(Color.LIGHT_GRAY);
@@ -60,6 +59,7 @@ public class MainFrame extends JFrame {
                 button.setForeground(Color.LIGHT_GRAY);
             }
         };
+
         MouseAdapter XbuttonChangeColor = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -75,25 +75,28 @@ public class MainFrame extends JFrame {
             }
         };
 
+        // Title Bar Icon
+        ImageIcon img = new ImageIcon("./Source/titlebarIcon.gif");
+        JLabel imgLabel = new JLabel(img);
+
+        // Menu Popup
         JPopupMenu menuPopup = new JPopupMenu();
+
         logoutItem = new JMenuItem("Log Out");
         logoutItem.setFont(new Fonts.MenuFont());
+
         exitItem = new JMenuItem("Exit");
         exitItem.setFont(new Fonts.MenuFont());
 
         menuPopup.add(logoutItem);
         menuPopup.add(exitItem);
 
-
-        ImageIcon img = new ImageIcon("./Source/titlebarIcon.gif");
-        JLabel imgLabel = new JLabel(img);
-
         // Menu button
         JButton menuButton = new JButton("☰");
         menuButton.setBackground(Color.GRAY);
         menuButton.setForeground(Color.LIGHT_GRAY);
         menuButton.addActionListener(e -> menuPopup.show(menuButton, 0, menuButton.getHeight()));
-        menuButton.addMouseListener(buttonChangeColor);
+        menuButton.addMouseListener(changeButtonColor);
 
 
         // Minimize button
@@ -101,14 +104,14 @@ public class MainFrame extends JFrame {
         minimizeButton.setBackground(Color.GRAY);
         minimizeButton.setForeground(Color.LIGHT_GRAY);
         minimizeButton.addActionListener(e -> setState(JFrame.ICONIFIED));
-        minimizeButton.addMouseListener(buttonChangeColor);
+        minimizeButton.addMouseListener(changeButtonColor);
 
         // Maximize or Restore button
         JButton maximizeButton = new JButton("□");
         maximizeButton.setBackground(Color.GRAY);
         maximizeButton.setForeground(Color.LIGHT_GRAY);
-        maximizeButton.addActionListener(e -> toggleMaximizeRestore());
-        maximizeButton.addMouseListener(buttonChangeColor);
+        maximizeButton.addActionListener(e -> setMaximizeRestore());
+        maximizeButton.addMouseListener(changeButtonColor);
 
         // Close button
         JButton closeButton = new JButton("X");
@@ -135,18 +138,17 @@ public class MainFrame extends JFrame {
         // Add title bar to the main frame
         add(titleBar, BorderLayout.NORTH);
 
+        // Setting
         ImageIcon menuIcon = new ImageIcon("./Source/statusbarIcon.png");
         setIconImage(menuIcon.getImage());
         setTitle("Java Final");
 
-
-
         setSize(1000, 800);
-        setResizable(true);
+        setResizable(false);
         setLocationRelativeTo(null);
     }
 
-    private void toggleMaximizeRestore() {
+    private void setMaximizeRestore() {
         if (getExtendedState() != JFrame.MAXIMIZED_BOTH) {
             prevLocation = getLocation();
             setExtendedState(JFrame.MAXIMIZED_BOTH);
