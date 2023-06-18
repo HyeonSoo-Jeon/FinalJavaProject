@@ -15,7 +15,7 @@ public class ClientDataManager {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("ERROR : " + e.getMessage());
+            System.out.println("ERROR : " + e.getMessage());
         }
         return dataList;
     }
@@ -29,7 +29,7 @@ public class ClientDataManager {
             fos.close();
             System.out.println("Save userInfo.dat file successfully.");
         } catch (IOException e) {
-            System.err.println("ERROR : " + e.getMessage());
+            System.out.println("ERROR : " + e.getMessage());
         }
     }
 }

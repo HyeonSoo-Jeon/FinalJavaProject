@@ -15,7 +15,7 @@ public class InitialSetting {
             if (rootDir.mkdir()) {
                 System.out.println("The [./Data] directory was created successfully.");
             } else {
-                System.err.println("Failed to create [./Data] directory.");
+                System.out.println("Failed to create [./Data] directory.");
             }
         }
         // client Directory
@@ -23,7 +23,7 @@ public class InitialSetting {
             if (clientDir.mkdir()) {
                 System.out.println("The [./Data/Client] directory was created successfully.");
             } else {
-                System.err.println("Failed to create [./Data/Client] directory.");
+                System.out.println("Failed to create [./Data/Client] directory.");
             }
         }
 
@@ -32,7 +32,7 @@ public class InitialSetting {
             if (postDir.mkdir()) {
                 System.out.println("The [./Data/Post] directory was created successfully.");
             } else {
-                System.err.println("Failed to create [./Data/Post] directory.");
+                System.out.println("Failed to create [./Data/Post] directory.");
             }
         }
     }
@@ -48,10 +48,10 @@ public class InitialSetting {
                     System.out.println("The [./Data/Client/userInfo.dat] file was created successfully.");
                 }
                 else {
-                    System.err.println("Failed to create [./Data/Client/userInfo.dat] file.");
+                    System.out.println("Failed to create [./Data/Client/userInfo.dat] file.");
                 }
             } catch(IOException e) {
-                System.err.println(e.toString());
+                System.out.println(e.toString());
             }
         }
         else {
@@ -64,10 +64,10 @@ public class InitialSetting {
                     System.out.println("The [./Data/Post/postInfo.dat] file was created successfully..");
                 }
                 else {
-                    System.err.println("Failed to create [./Data/Post/postInfo.dat] file.");
+                    System.out.println("Failed to create [./Data/Post/postInfo.dat] file.");
                 }
             } catch(IOException e) {
-                System.err.println(e.toString());
+                System.out.println(e.toString());
             }
         }
         else {
