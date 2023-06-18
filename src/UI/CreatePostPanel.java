@@ -45,7 +45,7 @@ public class CreatePostPanel extends JPanel {
 
         titleField = new JTextField("Write Title Here!");
         titleField.setBorder(new EmptyBorder(5,15,5,15));
-        titleField.setFont(new Fonts.ContentFont());
+        titleField.setFont(new Fonts.ContentBoldFont());
         centerPanel.add(titleField,BorderLayout.NORTH);
 
         contentField = new JTextArea("Write Content Here!");

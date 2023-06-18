@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
         menuPopup.add(exitItem);
 
 
-        ImageIcon img = new ImageIcon("./Source/cat.gif");
+        ImageIcon img = new ImageIcon("./Source/titlebarIcon.gif");
         JLabel imgLabel = new JLabel(img);
 
         // Menu button
@@ -135,7 +135,7 @@ public class MainFrame extends JFrame {
         // Add title bar to the main frame
         add(titleBar, BorderLayout.NORTH);
 
-        ImageIcon menuIcon = new ImageIcon("./Source/icon48x48.png");
+        ImageIcon menuIcon = new ImageIcon("./Source/statusbarIcon.png");
         setIconImage(menuIcon.getImage());
 
 

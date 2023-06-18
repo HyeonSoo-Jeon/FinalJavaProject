@@ -1,6 +1,8 @@
 package UI;
 
+import DataManager.CommentData;
 import DataManager.PostData;
+import DataManager.PostDataManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MainGUI {
 
@@ -109,7 +112,7 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createPostPanel = new CreatePostPanel(currentNickname);
-                createPostPanelButtonMapping();
+                initCreatePostPanelActionListeners();
                 container.add(createPostPanel, "CreatePostPanel");
                 cardLayout.show(container, "CreatePostPanel");
             }
@@ -152,8 +155,26 @@ public class MainGUI {
                 cardLayout.show(container, "FullPostPanel");
             }
         });
+        showPostPanel.commentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PostData currentPost = showPostPanel.getPost();
+                String newCommentString = showPostPanel.getComment();
+                currentPost.comments.add(0,new CommentData(currentNickname, newCommentString));
+
+                ArrayList<PostData> posts = PostDataManager.loadPostData();
+                posts.remove(idx);
+                posts.add(idx,post);
+                PostDataManager.savePostData(posts);
+
+                showPostPanel = new ShowPostPanel(post, currentNickname);
+                initShowPostPanelActionListeners();
+                container.add(showPostPanel, "ShowPostPanel");
+                cardLayout.show(container, "ShowPostPanel");
+            }
+        });
     }
-    void createPostPanelButtonMapping(){
+    void initCreatePostPanelActionListeners(){
         createPostPanel.cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

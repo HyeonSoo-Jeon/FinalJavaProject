@@ -77,12 +77,15 @@ public class LoginPanel extends JPanel {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.setPreferredSize(new Dimension(0,200));
-        loginButton = new JButton("Login");
-        loginButton.setFont(new Fonts.ButtonFont());
-        buttonsPanel.add(loginButton);
+
         createNewAccountButton = new JButton("Register");
         createNewAccountButton.setFont(new Fonts.ButtonFont());
         buttonsPanel.add(createNewAccountButton);
+
+        loginButton = new JButton("Login");
+        loginButton.setFont(new Fonts.ButtonFont());
+        buttonsPanel.add(loginButton);
+
         add(buttonsPanel, BorderLayout.SOUTH);
     }
 

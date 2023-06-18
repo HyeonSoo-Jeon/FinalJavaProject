@@ -27,20 +27,19 @@ public class FullPostPanel extends JPanel {
         add(topPanel, BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridBagLayout());
 
         posts = null;
         posts = PostDataManager.loadPostData();
         postPanels = new ArrayList<>();
         // no post
         if(posts==null || posts.size()==0){
-            centerPanel.setLayout(new GridBagLayout());
             JLabel noPostLabel = new JLabel("There are no posts!");
             noPostLabel.setFont(new Fonts.NoPostFont());
             centerPanel.add(noPostLabel,new GridBagConstraints());
             add(centerPanel,BorderLayout.CENTER);
         }
         else{
-            centerPanel.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridwidth = GridBagConstraints.REMAINDER;
             gbc.weightx = 1;
@@ -60,6 +59,7 @@ public class FullPostPanel extends JPanel {
                 titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
                 JLabel titleLabel = new JLabel(post.title);
+                titleLabel.setBorder(new EmptyBorder(0,15,0,0));
                 JLabel nicknameLabel = new JLabel(post.nickname);
                 titlePanel.add(titleLabel);
                 titlePanel.add(nicknameLabel);
@@ -78,12 +78,13 @@ public class FullPostPanel extends JPanel {
             // fill Empty Space
             GridBagConstraints gbcEmpty = new GridBagConstraints();
             gbcEmpty.gridwidth = GridBagConstraints.REMAINDER;
-            gbcEmpty.weighty =1;
+            gbcEmpty.weighty = 1;
             gbcEmpty.fill = GridBagConstraints.VERTICAL;
             centerPanel.add(Box.createVerticalGlue(),gbcEmpty);
 
-            centerPanel.add(new JLabel());
+            //centerPanel.add(new JLabel());
             JScrollPane scrollPane = new JScrollPane(centerPanel);
+            scrollPane.setBorder(null);
             scrollPane.getVerticalScrollBar().setUnitIncrement(10);
             add(scrollPane, BorderLayout.CENTER);
 

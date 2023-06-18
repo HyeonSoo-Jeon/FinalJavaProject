@@ -7,8 +7,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ShowPostPanel extends JPanel {
-    public JButton backButton, deleteButton;
+    public JButton backButton, deleteButton, commentButton;
+    JTextField commentField;
+    PostData post;
+
     ShowPostPanel(PostData post, String currentNickname){
+        this.post = post;
+
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
@@ -54,6 +59,7 @@ public class ShowPostPanel extends JPanel {
         contentLabel.setFont(new Fonts.ContentFont());
         contentLabel.setBackground(Color.white);
         contentLabel.setOpaque(true);
+
         JScrollPane contentScrollPane = new JScrollPane(contentLabel);
         contentScrollPane.getVerticalScrollBar().setUnitIncrement(10);
         centerPanel.add(contentScrollPane, BorderLayout.CENTER);
@@ -61,57 +67,66 @@ public class ShowPostPanel extends JPanel {
 
         // comments
         JPanel southPanel = new JPanel(new BorderLayout());
+        southPanel.setPreferredSize(new Dimension(100,250));
         southPanel.setBorder(new EmptyBorder(0,50,50,50));
         southPanel.setLayout(new BorderLayout(10,10));
 
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.setLayout(new BorderLayout(10,10));
+
         JLabel writerNicknameLabel = new JLabel(currentNickname);
         writerNicknameLabel.setFont(new Fonts.ContentFont());
-        JTextField commentField = new JTextField();
-        commentField.setFont(new Fonts.ContentFont());
-        JButton commentButton = new JButton("Comment!");
+
+        commentField = new JTextField();
+        commentField.setFont(new Fonts.ContentBoldFont());
+
+        commentButton = new JButton("Comment!");
         commentButton.setFont(new Fonts.ButtonFont());
+
         inputPanel.add(writerNicknameLabel, BorderLayout.WEST);
         inputPanel.add(commentField, BorderLayout.CENTER);
         inputPanel.add(commentButton, BorderLayout.EAST);
         southPanel.add(inputPanel, BorderLayout.NORTH);
 
-        JPanel commentsPanel = new JPanel();
-        commentsPanel.setPreferredSize(new Dimension(100,200));
+
+        JPanel commentsListPanel = new JPanel();
+        commentsListPanel.setLayout(new GridBagLayout());
 
         // no post
         if(post.comments.size()==0){
-            commentsPanel.setLayout(new GridBagLayout());
-            commentsPanel.add(new JLabel("There are no comments!"),new GridBagConstraints());
-            southPanel.add(commentsPanel,BorderLayout.SOUTH);
+            commentsListPanel.add(new JLabel("There are no comments!"),new GridBagConstraints());
+            southPanel.add(commentsListPanel,BorderLayout.SOUTH);
         }
         else{
-            commentsPanel.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridwidth = GridBagConstraints.REMAINDER;
             gbc.weightx = 1;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.insets = new Insets(10,50,10,50);
+            gbc.insets = new Insets(10,10,10,10);
 
             for(CommentData comment : post.comments){
-                JPanel commentPanel = new JPanel(new BorderLayout());
+                JPanel commentPanel = new JPanel(new BorderLayout(10,0));
 
                 JLabel nicknameLabel = new JLabel(comment.nickname);
-                nicknameLabel.setFont(new Fonts.ContentFont());
+                nicknameLabel.setFont(new Fonts.ContentBoldFont());
+
                 JLabel commentLabel = new JLabel(comment.content);
                 commentLabel.setFont(new Fonts.ContentFont());
-                commentPanel.add(nicknameLabel);
-                commentPanel.add((commentLabel));
-                commentsPanel.add(commentPanel,gbc);
+
+                commentPanel.add(nicknameLabel, BorderLayout.WEST);
+                commentPanel.add(commentLabel, BorderLayout.CENTER);
+
+                commentsListPanel.add(commentPanel,gbc);
             }
+
             GridBagConstraints gbcEmpty = new GridBagConstraints();
             gbcEmpty.gridwidth = GridBagConstraints.REMAINDER;
-            gbcEmpty.weighty =1;
+            gbcEmpty.weighty = 1;
             gbcEmpty.fill = GridBagConstraints.VERTICAL;
-            commentsPanel.add(Box.createVerticalGlue(),gbcEmpty);
+            commentsListPanel.add(Box.createVerticalGlue(),gbcEmpty);
 
-            JScrollPane scrollPane = new JScrollPane(commentsPanel);
+            JScrollPane scrollPane = new JScrollPane(commentsListPanel);
+            scrollPane.getVerticalScrollBar().setUnitIncrement(10);
             southPanel.add(scrollPane, BorderLayout.CENTER);
         }
         add(southPanel, BorderLayout.SOUTH);
@@ -125,10 +140,16 @@ public class ShowPostPanel extends JPanel {
         System.out.println("Post Deleted!");
     }
 
+    public String getComment(){
+        return commentField.getText();
+    }
+    public PostData getPost(){
+        return post;
+    }
     public static void main(String[] args){
         PostData post = new PostData("title","nickname","hi my name is nickname~!");
-        CommentData commentData = new CommentData("hi", "hi");
-        for(int i = 0 ; i<10;i++){
+        CommentData commentData = new CommentData("hi", "875hi");
+        for(int i = 0 ; i<2;i++){
             post.comments.add(commentData);
 
         }

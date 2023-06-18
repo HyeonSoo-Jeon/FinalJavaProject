@@ -14,6 +14,11 @@ public class Fonts {
             super("SansSerif", Font.PLAIN, 15);
         }
     }
+    public static class ContentBoldFont extends Font{
+        public ContentBoldFont() {
+            super("SansSerif", Font.BOLD, 15);
+        }
+    }
 
     public static class ButtonFont extends Font{
         public ButtonFont() {
