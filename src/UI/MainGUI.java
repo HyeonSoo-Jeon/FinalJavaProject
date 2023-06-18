@@ -122,7 +122,7 @@ public class MainGUI {
                     idx = fullPostPanel.postPanels.indexOf(postPanel);
                     post = fullPostPanel.posts.get(idx);
 
-                    showPostPanel = new ShowPostPanel(post,idx,currentNickname);
+                    showPostPanel = new ShowPostPanel(post, currentNickname);
                     initShowPostPanelActionListeners();
                     container.add(showPostPanel, "ShowPostPanel");
                     cardLayout.show(container, "ShowPostPanel");
