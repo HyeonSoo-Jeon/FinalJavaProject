@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CreateAccountPanel extends JPanel {
-    JLabel confirmIDLabel, confirmNicknameLabel;
+    JLabel confirmIDLabel, confirmNicknameLabel, confirmPWLabel;
     JTextField newID, newNickname;
     JPasswordField newPW;
     JButton cancelButton, registerButton, confirmIDButton, confirmNicknameButton;
@@ -177,17 +177,26 @@ public class CreateAccountPanel extends JPanel {
 
         inputPanel.add(pwPanel);
 
+        JPanel confirmPWPanel = new JPanel(new FlowLayout());
+        confirmPWLabel = new JLabel(" ");
+        confirmPWPanel.add(confirmPWLabel);
+        inputPanel.add(confirmPWPanel);
+
         add(inputPanel, BorderLayout.CENTER);
 
         // Login and register buttons panel
         JPanel buttonsPanel = new JPanel();
+
         buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.setPreferredSize(new Dimension(0,150));
+
         cancelButton = new JButton("Cancel");
         cancelButton.setFont(new Fonts.ContentBoldFont());
-        buttonsPanel.add(cancelButton);
+
         registerButton = new JButton("Create New Account");
         registerButton.setFont(new Fonts.ContentBoldFont());
+
+        buttonsPanel.add(cancelButton);
         buttonsPanel.add(registerButton);
         add(buttonsPanel, BorderLayout.SOUTH);
     }
@@ -202,6 +211,11 @@ public class CreateAccountPanel extends JPanel {
             confirmNicknameLabel.setText("Please confirm your Nickname");
         }
         if(isConfirmedID&&isConfirmedNickname){
+            if(newPW.getPassword().length==0){
+                confirmPWLabel.setForeground(Color.RED);
+                confirmPWLabel.setText("Please write your Password");
+                return false;
+            }
             String ID = newID.getText();
             String nickname = newNickname.getText();
             String PW = new String(newPW.getPassword());
