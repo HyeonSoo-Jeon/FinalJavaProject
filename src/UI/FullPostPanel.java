@@ -21,8 +21,8 @@ public class FullPostPanel extends JPanel {
         topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         // post button
-        createPostButton = new JButton("Create POST!");
-        createPostButton.setFont(new Fonts.ButtonFont());
+        createPostButton = new JButton("Create POST !");
+        createPostButton.setFont(new Fonts.ContentBoldFont());
         topPanel.add(createPostButton);
         add(topPanel, BorderLayout.NORTH);
 
@@ -32,9 +32,10 @@ public class FullPostPanel extends JPanel {
         posts = null;
         posts = PostDataManager.loadPostData();
         postPanels = new ArrayList<>();
+
         // no post
         if(posts==null || posts.size()==0){
-            JLabel noPostLabel = new JLabel("There are no posts!");
+            JLabel noPostLabel = new JLabel("There are no posts !");
             noPostLabel.setFont(new Fonts.NoPostFont());
             centerPanel.add(noPostLabel,new GridBagConstraints());
             add(centerPanel,BorderLayout.CENTER);
@@ -49,8 +50,8 @@ public class FullPostPanel extends JPanel {
             for(PostData post : posts) {
                 JPanel postPanel = new JPanel();
 
-                postPanel.setLayout(new BorderLayout(0,10));
-                postPanel.setPreferredSize(new Dimension(0,100));
+                postPanel.setLayout(new BorderLayout(0,15));
+                postPanel.setPreferredSize(new Dimension(0,80));
                 postPanel.setBackground(Color.white);
                 postPanel.setOpaque(true);
                 postPanel.setBorder(new LineBorder(Color.BLACK,1));
@@ -58,17 +59,22 @@ public class FullPostPanel extends JPanel {
                 JPanel titlePanel = new JPanel();
                 titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-                JLabel titleLabel = new JLabel(post.title);
-                titleLabel.setBorder(new EmptyBorder(0,15,0,0));
-                JLabel nicknameLabel = new JLabel(post.nickname);
+                int endOfTitle = Math.min(post.title.length(), 100);
+                String title = post.title.substring(0,endOfTitle);
+                JLabel titleLabel = new JLabel(title);
+                titleLabel.setBorder(new EmptyBorder(0,10,0,50));
+                titleLabel.setFont(new Fonts.ContentBoldFont());
+                JLabel nicknameLabel = new JLabel("writer : " + post.nickname);
+                nicknameLabel.setFont(new Fonts.MiniContentFont());
+
                 titlePanel.add(titleLabel);
                 titlePanel.add(nicknameLabel);
                 postPanel.add(titlePanel,BorderLayout.NORTH);
 
                 // protect to many "enter"
-                int end = Math.min(post.content.length(), 30);
-                String content = post.content.substring(0, end).replace('\n', ' ');
+                String content = post.content;
                 JLabel contentLabel = new JLabel(content);
+                contentLabel.setFont(new Fonts.ContentFont());
                 contentLabel.setVerticalAlignment(JLabel.TOP);
                 contentLabel.setBorder(new EmptyBorder(0,15,0,15));
                 postPanel.add(contentLabel,BorderLayout.CENTER);
@@ -90,11 +96,4 @@ public class FullPostPanel extends JPanel {
 
         }
     }
-
-    public static void main(String[] args){
-        MainFrame mf = new MainFrame();
-        mf.add(new FullPostPanel());
-        mf.setVisible(true);
-    }
-
 }

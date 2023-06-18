@@ -137,6 +137,7 @@ public class MainFrame extends JFrame {
 
         ImageIcon menuIcon = new ImageIcon("./Source/statusbarIcon.png");
         setIconImage(menuIcon.getImage());
+        setTitle("Java Final");
 
 
 
@@ -153,11 +154,5 @@ public class MainFrame extends JFrame {
             setExtendedState(JFrame.NORMAL);
             setLocation(prevLocation);
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("mainFrame");
-        MainFrame mf = new MainFrame();
-        mf.setVisible(true);
     }
 }

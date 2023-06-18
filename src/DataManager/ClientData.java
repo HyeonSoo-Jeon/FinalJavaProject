@@ -1,6 +1,5 @@
 package DataManager;
 
-import java.util.ArrayList;
 import java.io.Serializable;
 
 public class ClientData implements Serializable{

@@ -25,15 +25,15 @@ public class ShowPostPanel extends JPanel {
         JPanel topLeftPanel = new JPanel();
         topLeftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         backButton = new JButton("Back");
-        backButton.setFont(new Fonts.ButtonFont());
+        backButton.setFont(new Fonts.ContentBoldFont());
         topLeftPanel.add(backButton);
         topPanel.add(topLeftPanel,BorderLayout.WEST);
 
         // Post Button
         JPanel topRightPanel = new JPanel();
         topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        deleteButton = new JButton("DELETE!");
-        deleteButton.setFont(new Fonts.ButtonFont());
+        deleteButton = new JButton("DELETE !");
+        deleteButton.setFont(new Fonts.ContentBoldFont());
         if(!post.nickname.equals(currentNickname)){
             deleteButton.setVisible(false);
         }
@@ -49,13 +49,17 @@ public class ShowPostPanel extends JPanel {
 
         JLabel titleLabel = new JLabel(post.title);
 
-        titleLabel.setFont(new Fonts.NoPostFont());
+        titleLabel.setFont(new Fonts.TitleFont());
         centerPanel.add(titleLabel,BorderLayout.NORTH);
 
-        String content = post.content.replace("\n", "<br>");
-        JLabel contentLabel = new JLabel("<html>"+content+"</html>");
+        //String content = post.content.replace("\n", "<br>");
+        //JLabel contentLabel = new JLabel("<html>"+content+"</html>");
+        String content = post.content;
+        JTextArea contentLabel = new JTextArea(content);
+        contentLabel.setLineWrap(true);
+        contentLabel.setEditable(false);
         contentLabel.setBorder(new EmptyBorder(15,15,15,15));
-        contentLabel.setVerticalAlignment(JLabel.TOP);
+        //contentLabel.setVerticalAlignment(JLabel.TOP);
         contentLabel.setFont(new Fonts.ContentFont());
         contentLabel.setBackground(Color.white);
         contentLabel.setOpaque(true);
@@ -75,13 +79,13 @@ public class ShowPostPanel extends JPanel {
         inputPanel.setLayout(new BorderLayout(10,10));
 
         JLabel writerNicknameLabel = new JLabel(currentNickname);
-        writerNicknameLabel.setFont(new Fonts.ContentFont());
+        writerNicknameLabel.setFont(new Fonts.ContentBoldFont());
 
         commentField = new JTextField();
-        commentField.setFont(new Fonts.ContentBoldFont());
+        commentField.setFont(new Fonts.ContentFont());
 
-        commentButton = new JButton("Comment!");
-        commentButton.setFont(new Fonts.ButtonFont());
+        commentButton = new JButton("Comment !");
+        commentButton.setFont(new Fonts.ContentBoldFont());
 
         inputPanel.add(writerNicknameLabel, BorderLayout.WEST);
         inputPanel.add(commentField, BorderLayout.CENTER);
@@ -95,7 +99,7 @@ public class ShowPostPanel extends JPanel {
         // no post
         if(post.comments.size()==0){
             commentsListPanel.add(new JLabel("There are no comments!"),new GridBagConstraints());
-            southPanel.add(commentsListPanel,BorderLayout.SOUTH);
+            southPanel.add(commentsListPanel,BorderLayout.CENTER);
         }
         else{
             GridBagConstraints gbc = new GridBagConstraints();
@@ -145,17 +149,6 @@ public class ShowPostPanel extends JPanel {
     }
     public PostData getPost(){
         return post;
-    }
-    public static void main(String[] args){
-        PostData post = new PostData("title","nickname","hi my name is nickname~!");
-        CommentData commentData = new CommentData("hi", "875hi");
-        for(int i = 0 ; i<2;i++){
-            post.comments.add(commentData);
-
-        }
-        MainFrame mf = new MainFrame();
-        mf.add(new ShowPostPanel(post, "nikckname"));
-        mf.setVisible(true);
     }
 
 }

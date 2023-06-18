@@ -34,7 +34,7 @@ public class CreateAccountPanel extends JPanel {
         // "Create New Account" label
         JLabel titleLabel = new JLabel("Create New Account", SwingConstants.CENTER);
         titleLabel.setPreferredSize(new Dimension(100,200));
-        titleLabel.setFont(new Fonts.TitleFont());
+        titleLabel.setFont(new Fonts.MainTitleFont());
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
@@ -47,7 +47,7 @@ public class CreateAccountPanel extends JPanel {
         JPanel idPanel = new JPanel(new FlowLayout());
 
         JLabel idLabel = new JLabel("ID");
-        idLabel.setFont(new Fonts.ButtonFont());
+        idLabel.setFont(new Fonts.ContentBoldFont());
         idLabel.setPreferredSize(new Dimension(100,30));
         idPanel.add(idLabel);
 
@@ -59,7 +59,7 @@ public class CreateAccountPanel extends JPanel {
         idPanel.add(newID);
 
         confirmIDButton = new JButton("Duplicate check");
-        confirmIDButton.setFont(new Fonts.ButtonFont());
+        confirmIDButton.setFont(new Fonts.ContentBoldFont());
         confirmIDButton.setPreferredSize(new Dimension(150,25));
         confirmIDButton.addActionListener(new ActionListener() {
             @Override
@@ -105,7 +105,7 @@ public class CreateAccountPanel extends JPanel {
         JPanel nicknamePanel = new JPanel(new FlowLayout());
 
         JLabel nicknameLabel = new JLabel("Nickname");
-        nicknameLabel.setFont(new Fonts.ButtonFont());
+        nicknameLabel.setFont(new Fonts.ContentBoldFont());
         nicknameLabel.setPreferredSize(new Dimension(100,30));
         nicknamePanel.add(nicknameLabel);
 
@@ -116,7 +116,7 @@ public class CreateAccountPanel extends JPanel {
         nicknamePanel.add(newNickname);
 
         confirmNicknameButton = new JButton("Duplicate check");
-        confirmNicknameButton.setFont(new Fonts.ButtonFont());
+        confirmNicknameButton.setFont(new Fonts.ContentBoldFont());
         confirmNicknameButton.setPreferredSize(new Dimension(150,25));
         confirmNicknameButton.addActionListener(new ActionListener() {
             @Override
@@ -161,7 +161,7 @@ public class CreateAccountPanel extends JPanel {
         JPanel pwPanel = new JPanel(new FlowLayout());
 
         JLabel pwLabel = new JLabel("Password");
-        pwLabel.setFont(new Fonts.ButtonFont());
+        pwLabel.setFont(new Fonts.ContentBoldFont());
         pwLabel.setPreferredSize(new Dimension(100,30));
         pwPanel.add(pwLabel);
 
@@ -184,8 +184,10 @@ public class CreateAccountPanel extends JPanel {
         buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.setPreferredSize(new Dimension(0,200));
         cancelButton = new JButton("Cancel");
+        cancelButton.setFont(new Fonts.ContentBoldFont());
         buttonsPanel.add(cancelButton);
         registerButton = new JButton("Create New Account");
+        registerButton.setFont(new Fonts.ContentBoldFont());
         buttonsPanel.add(registerButton);
         add(buttonsPanel, BorderLayout.SOUTH);
     }
@@ -211,11 +213,5 @@ public class CreateAccountPanel extends JPanel {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args){
-        MainFrame mf = new MainFrame();
-        mf.add(new CreateAccountPanel());
-        mf.setVisible(true);
     }
 }

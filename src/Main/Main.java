@@ -1,6 +1,6 @@
 package Main;
 
-import UI.*;
+import UI.MainGUI;
 import Setting.InitialSetting;
 
 public class Main {

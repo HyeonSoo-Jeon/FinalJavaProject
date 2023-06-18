@@ -28,7 +28,7 @@ public class LoginPanel extends JPanel {
         // "JAVA FINAL" label
         JLabel titleLabel = new JLabel("JAVA FINAL", SwingConstants.CENTER);
         titleLabel.setPreferredSize(new Dimension(100,200));
-        titleLabel.setFont(new Fonts.TitleFont());
+        titleLabel.setFont(new Fonts.MainTitleFont());
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
@@ -40,7 +40,7 @@ public class LoginPanel extends JPanel {
         // ID
         JPanel idPanel = new JPanel(new FlowLayout());
         JLabel idLabel = new JLabel("ID");
-        idLabel.setFont(new Fonts.ButtonFont());
+        idLabel.setFont(new Fonts.ContentBoldFont());
         idLabel.setPreferredSize(new Dimension(100,30));
         idPanel.add(idLabel);
 
@@ -54,7 +54,7 @@ public class LoginPanel extends JPanel {
         JPanel pwPanel = new JPanel(new FlowLayout());
 
         JLabel pwLabel = new JLabel("Password");
-        pwLabel.setFont(new Fonts.ButtonFont());
+        pwLabel.setFont(new Fonts.ContentBoldFont());
         pwLabel.setPreferredSize(new Dimension(100,30));
         pwPanel.add(pwLabel);
         inputPW = new JPasswordField(20);
@@ -79,11 +79,11 @@ public class LoginPanel extends JPanel {
         buttonsPanel.setPreferredSize(new Dimension(0,200));
 
         createNewAccountButton = new JButton("Register");
-        createNewAccountButton.setFont(new Fonts.ButtonFont());
+        createNewAccountButton.setFont(new Fonts.ContentBoldFont());
         buttonsPanel.add(createNewAccountButton);
 
         loginButton = new JButton("Login");
-        loginButton.setFont(new Fonts.ButtonFont());
+        loginButton.setFont(new Fonts.ContentBoldFont());
         buttonsPanel.add(loginButton);
 
         add(buttonsPanel, BorderLayout.SOUTH);
@@ -123,11 +123,5 @@ public class LoginPanel extends JPanel {
             loginErrorLabel.setForeground(Color.RED);
         }
         return nickname;
-    }
-
-    public static void main(String[] args){
-        MainFrame mf = new MainFrame();
-        mf.add(new LoginPanel());
-        mf.setVisible(true);
     }
 }

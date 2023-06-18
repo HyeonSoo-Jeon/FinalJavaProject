@@ -3,9 +3,15 @@ package UI;
 import java.awt.*;
 
 public class Fonts {
+
+    public static class MainTitleFont extends Font{
+        public MainTitleFont() {
+            super("Dialog", Font.BOLD, 70);
+        }
+    }
     public static class TitleFont extends Font{
         public TitleFont() {
-            super("Dialog", Font.BOLD, 70);
+            super("Monospaced", Font.BOLD, 60);
         }
     }
 
@@ -14,14 +20,13 @@ public class Fonts {
             super("SansSerif", Font.PLAIN, 15);
         }
     }
-    public static class ContentBoldFont extends Font{
-        public ContentBoldFont() {
-            super("SansSerif", Font.BOLD, 15);
+    public static class MiniContentFont extends Font{
+        public MiniContentFont() {
+            super("SansSerif", Font.PLAIN, 12);
         }
     }
-
-    public static class ButtonFont extends Font{
-        public ButtonFont() {
+    public static class ContentBoldFont extends Font{
+        public ContentBoldFont() {
             super("SansSerif", Font.BOLD, 15);
         }
     }

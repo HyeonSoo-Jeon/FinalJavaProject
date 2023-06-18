@@ -1,11 +1,10 @@
 package UI;
 
+import CustomAdapter.TitleLimitAdapter;
 import DataManager.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class CreatePostPanel extends JPanel {
@@ -25,15 +24,15 @@ public class CreatePostPanel extends JPanel {
         JPanel topLeftPanel = new JPanel();
         topLeftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         cancelButton = new JButton("Cancel");
-        cancelButton.setFont(new Fonts.ButtonFont());
+        cancelButton.setFont(new Fonts.ContentBoldFont());
         topLeftPanel.add(cancelButton);
         topPanel.add(topLeftPanel,BorderLayout.WEST);
 
         // Post Button
         JPanel topRightPanel = new JPanel();
         topRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        postButton = new JButton("POST!");
-        postButton.setFont(new Fonts.ButtonFont());
+        postButton = new JButton("POST !");
+        postButton.setFont(new Fonts.ContentBoldFont());
         topRightPanel.add(postButton);
         topPanel.add(topRightPanel,BorderLayout.EAST);
         add(topPanel, BorderLayout.NORTH);
@@ -45,14 +44,17 @@ public class CreatePostPanel extends JPanel {
 
         titleField = new JTextField("Write Title Here!");
         titleField.setBorder(new EmptyBorder(5,15,5,15));
-        titleField.setFont(new Fonts.ContentBoldFont());
+        titleField.setFont(new Fonts.TitleFont());
+        titleField.addKeyListener(new TitleLimitAdapter());
         centerPanel.add(titleField,BorderLayout.NORTH);
 
         contentField = new JTextArea("Write Content Here!");
         contentField.setBorder(new EmptyBorder(15,15,15,15));
         contentField.setFont(new Fonts.ContentFont());
         contentField.setBackground(Color.white);
+        contentField.setLineWrap(true);
         contentField.setOpaque(true);
+
 
         JScrollPane contentScrollPane = new JScrollPane(contentField);
         centerPanel.add(contentScrollPane, BorderLayout.CENTER);
@@ -71,11 +73,4 @@ public class CreatePostPanel extends JPanel {
         PostDataManager.savePostData(posts);
         System.out.println("post!");
     }
-
-    public static void main(String[] args){
-        MainFrame mf = new MainFrame();
-        mf.add(new CreatePostPanel("nickname"));
-        mf.setVisible(true);
-    }
-
 }
