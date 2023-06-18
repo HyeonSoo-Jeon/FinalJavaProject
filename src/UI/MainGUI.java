@@ -17,7 +17,6 @@ public class MainGUI {
     String currentNickname;
     int idx;
     PostData post;
-
     MainFrame mainFrame;
     CardLayout cardLayout;
     JPanel container;
